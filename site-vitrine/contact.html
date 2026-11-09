@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#160b25">
+  <meta name="description" content="Contactez RECCORRES-VIFFE — Nous sommes à votre écoute.">
+  <title>Contact | RECCORRES-VIFFE</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="topbar"><div class="wrap">
+    <nav class="nav" aria-label="Navigation principale">
+      <a class="brand" href="index.html">
+        <img src="assets/logo.jpeg" alt="Logo RECCORRES-VIFFE">
+        <span><strong>RECCORRES-VIFFE</strong><small>Réseau camerounais</small></span>
+      </a>
+      <button class="menu-toggle" aria-label="Ouvrir le menu" aria-expanded="false" onclick="toggleMenu()">☰</button>
+      <div class="navlinks" id="navlinks">
+        <a href="index.html" onclick="closeMenu()">Accueil</a>
+        <a href="index.html#missions" onclick="closeMenu()">Nos missions</a>
+        <a href="ressources.html" onclick="closeMenu()">Ressources</a>
+        <a href="a-propos.html" onclick="closeMenu()">À propos</a>
+        <a href="contact.html" onclick="closeMenu()">Contact</a>
+      </div>
+      <a class="nav-cta" href="../web-app/index.html">Application d'urgence <span aria-hidden="true">↗</span></a>
+    </nav>
+  </div></div>
+  <main>
+    <section class="section">
+      <div class="wrap">
+        <p class="breadcrumb"><a href="index.html">Accueil</a> › Contact</p>
+        <div class="section-head" style="margin-top:30px">
+          <div class="kicker">Nous sommes à votre écoute</div>
+          <h1 style="font-size:clamp(2.2rem,5vw,3.6rem)">Contact</h1>
+          <p>Une question, une demande d'accompagnement ou un projet de partenariat ? Écrivez-nous.</p>
+        </div>
+        <div class="grid-2" style="align-items:start">
+          <div class="card" style="padding:32px">
+            <h2 style="font-size:1.6rem;margin-top:0">Envoyez-nous un message</h2>
+            <form id="contact-form">
+              <div class="form-group"><label for="nom">Nom complet *</label><input type="text" id="nom" name="nom" required placeholder="Votre nom"></div>
+              <div class="form-group"><label for="email">Email *</label><input type="email" id="email" name="email" required placeholder="vous@exemple.com"></div>
+              <div class="form-group"><label for="sujet">Sujet</label>
+                <select id="sujet" name="sujet">
+                  <option>Demande d'information</option>
+                  <option>Demande d'accompagnement</option>
+                  <option>Partenariat</option>
+                  <option>Autre</option>
+                </select>
+              </div>
+              <div class="form-group"><label for="message">Message *</label><textarea id="message" name="message" required placeholder="Votre message..."></textarea></div>
+              <button type="submit" class="button primary" style="width:100%">Envoyer le message <span aria-hidden="true">→</span></button>
+              <p id="form-status" style="display:none;color:#ffd09a;margin-top:14px;font-weight:600"></p>
+            </form>
+          </div>
+          <div>
+            <div class="card" style="margin-bottom:16px">
+              <div class="icon" aria-hidden="true">☎</div>
+              <h3>Urgences</h3>
+              <p>Police : <strong>117</strong><br>Gendarmerie : <strong>113</strong><br>Urgences médicales : <strong>119</strong></p>
+            </div>
+            <div class="card">
+              <div class="icon" aria-hidden="true">✉</div>
+              <h3>Nous écrire</h3>
+              <p>contact@reccorres-viffe.org<br>Réseau camerounais — Yaoundé, Cameroun</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer><div class="wrap footer-inner">
+    <div><div class="footer-brand">RECCORRES-VIFFE</div><div class="footer-motto">Prévenir • Protéger • Accompagner • Autonomiser</div></div>
+    <div>© 2026 RECCORRES-VIFFE · <a href="mentions-legales.html">Mentions légales</a></div>
+  </div></footer>
+  <script src="js/main.js"></script>
+</body>
+</html>
