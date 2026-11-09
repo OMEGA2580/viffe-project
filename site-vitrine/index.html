@@ -4,45 +4,129 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RECCORRES-VIFFE | ONG</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
             --purple: #6A0DAD;
+            --purple-dark: #4A00E0;
+            --purple-light: #F3E8FF;
             --orange: #FF7F50;
-            --light-bg: #f8f9fa;
+            --text-dark: #1F2937;
+            --text-muted: #4B5563;
+            --bg-light: #FAFAFC;
         }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; line-height: 1.6; color: #333; }
-        header { background: var(--purple); color: white; padding: 2rem 5%; text-align: center; }
-        header h1 { margin: 0; font-size: 2.5rem; }
-        .devise { font-size: 1.2rem; font-style: italic; color: var(--orange); margin-top: 10px; font-weight: bold; }
-        nav { background: #333; color: white; display: flex; justify-content: center; gap: 20px; padding: 1rem; }
-        nav a { color: white; text-decoration: none; font-weight: bold; }
-        nav a:hover { color: var(--orange); }
-        .container { padding: 3rem 5%; max-width: 1200px; margin: auto; text-align: center; }
-        .btn-app { display: inline-block; background: var(--orange); color: white; padding: 15px 30px; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 1.2rem; margin-top: 20px; }
-        footer { background: #222; color: white; text-align: center; padding: 1.5rem; margin-top: 2rem; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', system-ui, sans-serif; }
+        body { background-color: var(--bg-light); color: var(--text-dark); line-height: 1.6; }
+        
+        .navbar { position: sticky; top: 0; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(8px); border-bottom: 1px solid #EEE; z-index: 1000; }
+        .nav-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; }
+        
+        /* EMPLACEMENT DU LOGO (site-vitrine/assets/logo.png) */
+        .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--purple); font-weight: 800; font-size: 1.3rem; }
+        .logo-img { height: 48px; width: auto; object-fit: contain; }
+        .logo-fallback { font-size: 2rem; }
+
+        .nav-links { display: flex; gap: 2rem; align-items: center; list-style: none; }
+        .nav-links a { text-decoration: none; color: var(--text-dark); font-weight: 600; font-size: 0.95rem; }
+        .nav-links a:hover { color: var(--purple); }
+        .btn-sos { background: var(--orange); color: white !important; padding: 0.6rem 1.4rem; border-radius: 50px; font-weight: 700 !important; text-decoration: none; box-shadow: 0 4px 12px rgba(255,127,80,0.3); }
+        
+        .hero { background: linear-gradient(135deg, var(--purple-dark) 0%, var(--purple) 100%); color: white; padding: 5rem 2rem; text-align: center; }
+        .hero-content { max-width: 800px; margin: 0 auto; }
+        .hero-badge { display: inline-block; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); padding: 5px 15px; border-radius: 50px; font-size: 0.85rem; text-transform: uppercase; margin-bottom: 1rem; }
+        .hero h1 { font-size: 2.8rem; font-weight: 800; margin-bottom: 1rem; line-height: 1.2; }
+        .hero-devise { font-size: 1.3rem; font-weight: 700; color: var(--orange); margin-bottom: 1.5rem; }
+        .hero p { font-size: 1.1rem; opacity: 0.9; margin-bottom: 2rem; }
+        .hero-btns { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+        .btn-primary { background: var(--orange); color: white; padding: 0.9rem 2rem; border-radius: 12px; font-weight: 700; text-decoration: none; box-shadow: 0 6px 15px rgba(255,127,80,0.4); }
+        .btn-secondary { background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.4); padding: 0.9rem 2rem; border-radius: 12px; font-weight: 700; text-decoration: none; }
+
+        .stats { background: white; max-width: 950px; margin: -2.5rem auto 0 auto; border-radius: 16px; padding: 1.8rem; box-shadow: 0 10px 25px rgba(0,0,0,0.08); display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1.5rem; text-align: center; position: relative; z-index: 10; }
+        .stat-item h3 { font-size: 2rem; color: var(--purple); font-weight: 800; }
+        .stat-item p { color: var(--text-muted); font-size: 0.85rem; font-weight: 600; }
+
+        .section { padding: 4rem 2rem; max-width: 1200px; margin: 0 auto; }
+        .section-header { text-align: center; max-width: 600px; margin: 0 auto 3rem auto; }
+        .section-title { font-size: 2rem; color: var(--purple); font-weight: 800; }
+        
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; }
+        .card { background: white; padding: 2rem; border-radius: 16px; border: 1px solid #F0F0F5; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
+        .card-icon { width: 50px; height: 50px; background: var(--purple-light); color: var(--purple); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 1rem; }
+        .card h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .card p { color: var(--text-muted); font-size: 0.9rem; }
+
+        footer { background: #111827; color: #9CA3AF; padding: 3rem 2rem 1.5rem 2rem; text-align: center; margin-top: 3rem; }
+        footer p { font-size: 0.85rem; }
     </style>
 </head>
 <body>
-    <header>
-        <h1>🛡️ RECCORRES-VIFFE</h1>
-        <div class="devise">Prévenir • Protéger • Accompagner • Autonomiser</div>
-    </header>
-    
-    <nav>
-        <a href="#accueil">Accueil</a>
-        <a href="#missions">Nos Missions</a>
-        <a href="#contact">Contact</a>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="brand">
+                <img src="assets/logo.png" alt="RECCORRES-VIFFE" class="logo-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline';">
+                <span class="logo-fallback" style="display:none;">🛡️</span>
+                <span>RECCORRES-VIFFE</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#accueil">Accueil</a></li>
+                <li><a href="#missions">Nos Missions</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="../web-app/index.html" class="btn-sos">Urgence SOS</a></li>
+            </ul>
+        </div>
     </nav>
 
-    <div class="container" id="accueil">
-        <h2>Bienvenue sur le portail officiel de RECCORRES-VIFFE</h2>
-        <p>Nous sommes un réseau camerounais dédié à la coordination, au renforcement du référencement et à la protection des survivantes de violences (femmes, filles et enfants).</p>
-        
-        <a href="../web-app/index.html" class="btn-app">Accéder à l'Application d'Urgence</a>
+    <section class="hero" id="accueil">
+        <div class="hero-content">
+            <span class="hero-badge">Réseau National Camerounais</span>
+            <h1>Protection & Coordination des Survivantes</h1>
+            <div class="hero-devise">Prévenir • Protéger • Accompagner • Autonomiser</div>
+            <p>Le réseau RECCORRES-VIFFE œuvre pour la protection des femmes et enfants à Yaoundé et sur l'ensemble du territoire national.</p>
+            <div class="hero-btns">
+                <a href="../web-app/index.html" class="btn-primary">🚨 Signaler une urgence</a>
+                <a href="#missions" class="btn-secondary">Découvrir nos actions</a>
+            </div>
+        </div>
+    </section>
+
+    <div class="stats">
+        <div class="stat-item"><h3>24/7</h3><p>Écoute & Assistance</p></div>
+        <div class="stat-item"><h3>100%</h3><p>Signalement Anonyme</p></div>
+        <div class="stat-item"><h3>Yaoundé</h3><p>Siège Central Cameroun</p></div>
     </div>
 
-    <footer>
-        <p>&copy; 2026 RECCORRES-VIFFE. Tous droits réservés.</p>
+    <section class="section" id="missions">
+        <div class="section-header">
+            <h2 class="section-title">Nos 4 Piliers d'Action</h2>
+        </div>
+        <div class="grid">
+            <div class="card">
+                <div class="card-icon">📢</div>
+                <h3>1. Prévenir</h3>
+                <p>Sensibilisation communautaire et prévention des violences basées sur le genre (VBG).</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">🛡️</div>
+                <h3>2. Protéger</h3>
+                <p>Prise en charge d'urgence, système d'alerte et hébergement sécurisé.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">🤝</div>
+                <h3>3. Accompagner</h3>
+                <p>Suivi psychologique, médical et juridico-légal strictement confidentiel.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">🌱</div>
+                <h3>4. Autonomiser</h3>
+                <p>Réinsertion socio-économique et ateliers d'autonomisation pour les survivantes.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <p>&copy; 2026 RECCORRES-VIFFE ONG. Tous droits réservés. • Yaoundé, Cameroun</p>
     </footer>
 </body>
 </html>
