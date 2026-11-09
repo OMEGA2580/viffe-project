@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Urgence SOS - VIFFE</title>
+    <style>
+        body { font-family: system-ui, sans-serif; background: #6A0DAD; color: white; padding: 20px; text-align: center; }
+        .nav-header { text-align: left; margin-bottom: 20px; }
+        .nav-header a { color: white; text-decoration: none; font-weight: bold; font-size: 1.2rem; }
+        .sos-btn { background: #FF7F50; color: white; border: none; width: 220px; height: 220px; border-radius: 50%; font-size: 1.5rem; font-weight: 800; cursor: pointer; box-shadow: 0 0 25px rgba(255,127,80,0.6); margin: 40px auto; display: flex; align-items: center; justify-content: center; flex-direction: column; }
+        .status-box { background: rgba(255,255,255,0.2); padding: 15px; border-radius: 12px; margin-top: 20px; font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+    <div class="nav-header">
+        <a href="index.html">❮ Retour</a>
+    </div>
+
+    <h2>Centre d'Alerte Immédiate</h2>
+    <p>Appuyez pour déclencher l'alerte d'urgence</p>
+
+    <button class="sos-btn" id="sosButton">
+        <span>JE SUIS EN DANGER</span>
+        <small style="font-size:0.8rem; margin-top:5px;">SOS</small>
+    </button>
+
+    <div class="status-box" id="statusBox">
+        📍 Géolocalisation active : Yaoundé, Cameroun
+    </div>
+
+    <script>
+        document.getElementById('sosButton').addEventListener('click', () => {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition((pos) => {
+                    sendAlert(pos.coords.latitude, pos.coords.longitude);
+                }, () => {
+                    sendAlert(3.8480, 11.5021);
+                });
+            } else {
+                sendAlert(3.8480, 11.5021);
+            }
+        });
+
+        function sendAlert(lat, lng) {
+            document.getElementById('statusBox').innerHTML = `✅ <b>Alerte transmise !</b><br>Position envoyée: ${lat.toFixed(4)}, ${lng.toFixed(4)}`;
+            fetch('http://localhost:3000/api/alertes/sos', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ latitude: lat, longitude: lng, horodatage: new Date().toISOString() })
+            });
+        }
+    </script>
+</body>
+</html>

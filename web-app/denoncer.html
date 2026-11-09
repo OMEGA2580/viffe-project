@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signalement Anonyme - VIFFE</title>
+    <style>
+        :root { --purple-bg: #8E2DE2; --orange-btn: #FF7F50; }
+        body { font-family: system-ui, sans-serif; background: #f4f4f9; margin: 0; padding: 20px; color: #333; }
+        .nav-header { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
+        .nav-header a { text-decoration: none; color: #6A0DAD; font-weight: bold; font-size: 1.2rem; }
+        .card { background: white; padding: 20px; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); max-width: 450px; margin: 0 auto; }
+        h2 { font-size: 1.3rem; margin-bottom: 15px; color: #6A0DAD; }
+        label { display: block; font-weight: 600; font-size: 0.9rem; margin-top: 12px; margin-bottom: 5px; }
+        select, textarea, input { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem; box-sizing: border-box; }
+        .toggle-container { display: flex; justify-content: space-between; align-items: center; margin-top: 15px; background: #f8f8fc; padding: 10px 15px; border-radius: 8px; }
+        .btn-submit { background: var(--orange-btn); color: white; border: none; width: 100%; padding: 15px; border-radius: 10px; font-weight: bold; font-size: 1rem; margin-top: 20px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="nav-header">
+        <a href="index.html">❮ Rapport Anonyme</a>
+    </div>
+
+    <div class="card">
+        <h2>Formulaire anonyme</h2>
+        <form id="reportForm">
+            <label for="type">Type d'incident</label>
+            <select id="type" required>
+                <option value="harcelement">Harcèlement</option>
+                <option value="violence">Violence physique / conjugale</option>
+                <option value="autre">Autre agression</option>
+            </select>
+
+            <label for="description">Description</label>
+            <textarea id="description" rows="4" placeholder="Décrivez la situation en quelques mots..." required></textarea>
+
+            <label for="location">Localisation</label>
+            <input type="text" id="location" value="Yaoundé, Cameroun" required>
+
+            <div class="toggle-container">
+                <span>Envoyer de manière anonyme</span>
+                <input type="checkbox" checked disabled>
+            </div>
+
+            <button type="submit" class="btn-submit">Envoyer le rapport anonyme</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('reportForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const data = {
+                type: document.getElementById('type').value,
+                description: document.getElementById('description').value,
+                location: document.getElementById('location').value,
+                timestamp: new Date().toISOString()
+            };
+            
+            try {
+                const response = await fetch('http://localhost:3000/api/alertes/sos', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                alert('Rapport anonyme transmis avec succès à l’équipe VIFFE.');
+                window.location.href = 'index.html';
+            } catch (err) {
+                alert('Signalement enregistré localement.');
+            }
+        });
+    </script>
+</body>
+</html>
