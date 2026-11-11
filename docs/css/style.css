@@ -226,3 +226,55 @@ footer a:hover { color: var(--orange-light); }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; }
 }
+
+/* ============================================
+   AJOUTS — Nouvelles sections (galerie, témoignages, partenaires, stats)
+   ============================================ */
+
+.section-title {
+  position: relative; padding-bottom: 18px; margin-bottom: 34px;
+}
+.section-title::after {
+  content: ""; position: absolute; left: 50%; bottom: 0;
+  transform: translateX(-50%); width: 60px; height: 3px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--orange), var(--orange-light));
+}
+
+.temoignage { text-align: center; padding: 40px 30px; }
+.temoignage-quote {
+  font-size: clamp(1.1rem, 2.2vw, 1.4rem);
+  font-style: italic; line-height: 1.7; color: #f0e6f4;
+  margin: 0 0 24px; max-width: 720px;
+  margin-left: auto; margin-right: auto;
+}
+.temoignage-quote::before {
+  content: "« "; color: var(--orange-light);
+  font-size: 1.6em; font-weight: 800;
+}
+.temoignage-quote::after {
+  content: " »"; color: var(--orange-light);
+  font-size: 1.6em; font-weight: 800;
+}
+.temoignage-author {
+  display: flex; flex-direction: column; align-items: center; gap: 12px;
+}
+.temoignage-avatar {
+  width: 64px; height: 64px; border-radius: 50%; object-fit: cover;
+  border: 2px solid var(--orange-light);
+  box-shadow: 0 8px 20px rgba(242, 138, 27, 0.3);
+}
+.temoignage-name { font-weight: 700; color: #fff; }
+.temoignage-role { font-size: 0.85rem; color: #b9a9c2; }
+
+.section-glass { position: relative; padding: 74px 0; }
+.section-glass::before {
+  content: ""; position: absolute; inset: 0;
+  background: rgba(22, 11, 37, 0.35);
+  backdrop-filter: blur(2px); z-index: -1;
+}
+
+.section-head-lg {
+  max-width: 820px; margin: 0 auto 48px; text-align: center;
+}
+.section-head-lg h2 { font-size: clamp(2rem, 4.5vw, 3.4rem); }

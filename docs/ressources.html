@@ -7,8 +7,11 @@
   <meta name="description" content="Ressources et outils RECCORRES-VIFFE pour les survivantes et les professionnels.">
   <title>Ressources | RECCORRES-VIFFE</title>
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/animations.css">
 </head>
 <body>
+  <div class="site-bg" aria-hidden="true"></div>
+  <div class="site-bg-overlay" aria-hidden="true"></div>
   <div class="topbar"><div class="wrap">
     <nav class="nav" aria-label="Navigation principale">
       <a class="brand" href="index.html">
@@ -22,8 +25,17 @@
         <a href="ressources.html" onclick="closeMenu()">Ressources</a>
         <a href="a-propos.html" onclick="closeMenu()">À propos</a>
         <a href="contact.html" onclick="closeMenu()">Contact</a>
+        <a href="dons.html" class="navlinks-donate" onclick="closeMenu()">💝 Faire un don</a>
       </div>
-      <a class="nav-cta" href="../web-app/index.html">Application d'urgence <span aria-hidden="true">↗</span></a>
+      <div class="nav-actions">
+        <a class="nav-donate" href="dons.html" aria-label="Faire un don">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true">
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+          </svg>
+          Faire un don
+        </a>
+        <a class="nav-cta" href="../web-app/index.html">Application d'urgence <span aria-hidden="true">↗</span></a>
+      </div>
     </nav>
   </div></div>
   <main>
@@ -55,5 +67,29 @@
     <div>© 2026 RECCORRES-VIFFE · <a href="mentions-legales.html">Mentions légales</a></div>
   </div></footer>
   <script src="js/main.js"></script>
+
+  <!-- Badge "Télécharger l'application" flottant -->
+  <a href="../web-app/index.html" class="app-download-badge" aria-label="Télécharger l'application d'urgence">
+    <span class="app-badge-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+        <path d="M17 1H7c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-2-2-2zm0 18H7V5h10v14z"/>
+        <circle cx="12" cy="19" r="1"/>
+      </svg>
+    </span>
+    <span class="app-badge-text">
+      <span class="app-badge-title">Télécharger l'application</span>
+      <span class="app-badge-subtitle">SOS · Signalement · Aide</span>
+    </span>
+    <span class="app-badge-close" onclick="event.preventDefault(); event.stopPropagation(); this.closest('.app-download-badge').style.display='none';" aria-label="Fermer">×</span>
+  </a>
+
+  <script src="js/animations.js"></script>
+
+  <a href="dons.html" class="donate-float" aria-label="Faire un don">
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+      <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+    </svg>
+    Faire un don
+  </a>
 </body>
 </html>

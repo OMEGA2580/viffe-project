@@ -1,1 +1,32 @@
-serveur-central/node_modules/
+# Dépendances
+node_modules/
+
+# Environnement
+.env
+.env.local
+*.env
+
+# Backups (tous types)
+*.bak
+*.bak.*
+*.before-*
+docs/index.html.bak
+docs/index.html.before-*
+docs/css/*.bak*
+docs/dons.html.bak*
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Build
+dist/
+build/

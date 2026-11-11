@@ -1,0 +1,3346 @@
+/* ============================================
+   RECCORRES-VIFFE — Animations (Style 5)
+   Gradient animé + Blobs + Particules + Parallax
+   ============================================ */
+
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50%      { background-position: 100% 50%; }
+}
+.hero-animated {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #4b176f, #71309a, #f28a1b, #4b176f);
+  background-size: 400% 400%;
+  animation: gradientShift 18s ease infinite;
+}
+
+@keyframes blobFloat1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%      { transform: translate(40px, -30px) scale(1.1); }
+  66%      { transform: translate(-30px, 30px) scale(0.95); }
+}
+@keyframes blobFloat2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50%      { transform: translate(-50px, 40px) scale(1.15); }
+}
+@keyframes blobFloat3 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%      { transform: translate(30px, 50px) scale(0.9); }
+  66%      { transform: translate(-40px, -20px) scale(1.05); }
+}
+
+.blob {
+  position: absolute; border-radius: 50%; filter: blur(70px);
+  pointer-events: none; z-index: 0; opacity: 0.5;
+}
+.blob-1 { width: 380px; height: 380px; background: rgba(255, 179, 79, 0.45); top: -100px; right: -80px; animation: blobFloat1 20s ease-in-out infinite; }
+.blob-2 { width: 320px; height: 320px; background: rgba(139, 54, 165, 0.55); bottom: -120px; left: -60px; animation: blobFloat2 25s ease-in-out infinite; }
+.blob-3 { width: 280px; height: 280px; background: rgba(255, 255, 255, 0.35); top: 40%; left: 45%; animation: blobFloat3 22s ease-in-out infinite; }
+
+.particles { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 1; }
+.particle {
+  position: absolute; width: 4px; height: 4px; background: #ffb34f;
+  border-radius: 50%; opacity: 0; box-shadow: 0 0 8px #ffb34f;
+  animation: particleRise linear infinite;
+}
+@keyframes particleRise {
+  0%   { transform: translateY(0) scale(0.6); opacity: 0; }
+  10%  { opacity: 0.9; }
+  90%  { opacity: 0.6; }
+  100% { transform: translateY(-100vh) scale(1); opacity: 0; }
+}
+
+.hero-parallax {
+  /* Image retirée — hero en gradient animé + blobs uniquement */
+  display: none !important;
+}
+
+.reveal {
+  opacity: 0; transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+.carousel { position: relative; overflow: hidden; border-radius: 24px; }
+.carousel-track { display: flex; transition: transform 0.6s ease; }
+.carousel-slide { min-width: 100%; padding: 32px; box-sizing: border-box; }
+.carousel-dots { display: flex; justify-content: center; gap: 10px; margin-top: 20px; }
+.carousel-dot {
+  width: 10px; height: 10px; border-radius: 50%; border: 0;
+  background: rgba(255, 255, 255, 0.3); cursor: pointer;
+  transition: background 0.3s, transform 0.3s;
+}
+.carousel-dot.active { background: var(--orange-light); transform: scale(1.3); }
+
+.counter {
+  font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 800;
+  background: linear-gradient(110deg, #ffb34f, #f28a1b);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  line-height: 1;
+}
+
+.gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.gallery-item {
+  position: relative; overflow: hidden; border-radius: 20px;
+  aspect-ratio: 4 / 3; border: 1px solid var(--line);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.2);
+  transition: transform 0.4s ease;
+}
+.gallery-item:hover { transform: translateY(-6px) scale(1.02); }
+.gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+.gallery-item:hover img { transform: scale(1.08); }
+.gallery-item::after {
+  content: attr(data-caption);
+  position: absolute; inset: auto 0 0 0; padding: 20px 18px;
+  background: linear-gradient(to top, rgba(22, 11, 37, 0.95), transparent);
+  color: #fffafc; font-size: 0.9rem; font-weight: 600;
+  opacity: 0; transform: translateY(20px);
+  transition: opacity 0.4s, transform 0.4s;
+}
+.gallery-item:hover::after { opacity: 1; transform: translateY(0); }
+
+.partners { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; align-items: center; }
+.partner-logo {
+  display: flex; align-items: center; justify-content: center;
+  padding: 18px; border-radius: 16px;
+  background: rgba(255, 255, 255, 0.05); border: 1px solid var(--line);
+  transition: transform 0.3s, background 0.3s;
+}
+.partner-logo:hover { transform: translateY(-4px); background: rgba(255, 255, 255, 0.1); }
+.partner-logo img {
+  max-width: 100%; height: 60px; object-fit: contain;
+  filter: grayscale(1) brightness(1.5); opacity: 0.85;
+  transition: filter 0.3s, opacity 0.3s;
+}
+.partner-logo:hover img { filter: grayscale(0) brightness(1); opacity: 1; }
+
+.stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; text-align: center; }
+.stat {
+  padding: 28px 20px; border-radius: 20px;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.03));
+  border: 1px solid var(--line);
+}
+.stat-label {
+  margin-top: 10px; color: #cbbdd3; font-size: 0.9rem;
+  text-transform: uppercase; letter-spacing: 0.1em;
+}
+
+@media (max-width: 850px) {
+  .gallery { grid-template-columns: repeat(2, 1fr); }
+  .partners { grid-template-columns: repeat(2, 1fr); }
+  .stats { grid-template-columns: 1fr; }
+  .blob { filter: blur(50px); opacity: 0.35; }
+  .blob-1, .blob-2, .blob-3 { width: 240px; height: 240px; }
+}
+@media (max-width: 640px) {
+  .gallery { grid-template-columns: 1fr; }
+  .partners { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-animated, .blob, .particle, .reveal, .carousel-track {
+    animation: none !important; transition: none !important;
+  }
+  .reveal { opacity: 1; transform: none; }
+}
+
+/* ============================================
+   SECTION "NOTRE RAISON D'ÊTRE" — fond animé + vidéo
+   ============================================ */
+
+.pillars-section {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* Image de fond (thème T3 : communauté / femmes) */
+.pillars-bg {
+  position: absolute;
+  inset: -5%;
+  background-image: url('../assets/images/hero-bg.jpg');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.55;
+  filter: blur(0.5px) saturate(1.2) brightness(1.05);
+  animation: pillarsKenBurns 25s ease-in-out infinite alternate;
+  will-change: transform;
+  z-index: -2;
+  pointer-events: none;
+}
+
+@keyframes pillarsKenBurns {
+  0%   { transform: scale(1) translate(0, 0); }
+  100% { transform: scale(1.15) translate(-2%, -2%); }
+}
+
+/* Overlay dégradé violet/orange animé */
+.pillars-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(75, 23, 111, 0.82) 0%,
+    rgba(113, 48, 154, 0.65) 40%,
+    rgba(242, 138, 27, 0.35) 100%
+  );
+  background-size: 200% 200%;
+  animation: gradientShift 14s ease infinite;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Les cartes des piliers en verre dépoli au-dessus du fond */
+.pillars-section .pillars {
+  position: relative;
+  z-index: 2;
+}
+.pillars-section .pillar {
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+}
+.pillars-section .pillar:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* Titre de la section au-dessus du fond */
+.pillars-section .section-head {
+  position: relative;
+  z-index: 2;
+}
+
+/* Particules de la section (réutilise .particles) */
+.pillars-section .particles {
+  z-index: 1;
+}
+
+/* ============================================
+   BLOC VIDÉO DE PRÉSENTATION
+   ============================================ */
+
+.pillars-video {
+  position: relative;
+  z-index: 2;
+  margin-top: 56px;
+}
+
+.video-wrapper {
+  position: relative;
+  max-width: 900px;
+  margin: 0 auto;
+  border-radius: 24px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.4);
+  background: rgba(22, 11, 37, 0.6);
+  aspect-ratio: 16 / 9;
+}
+
+.pillars-video-player {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: #160b25;
+}
+
+/* Placeholder si la vidéo est absente */
+.video-fallback {
+  position: absolute;
+  inset: 0;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 32px;
+  text-align: center;
+  background:
+    radial-gradient(ellipse at center, rgba(139, 54, 165, 0.4), rgba(22, 11, 37, 0.95));
+  color: #e8deec;
+  font-size: 0.95rem;
+}
+.video-fallback-icon {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, var(--orange), var(--orange-light));
+  color: #fff;
+  font-size: 1.8rem;
+  box-shadow: 0 8px 24px rgba(242, 138, 27, 0.4);
+}
+
+/* Quand la vidéo ne charge pas, on affiche le fallback */
+.video-wrapper.is-empty .video-fallback {
+  display: flex;
+}
+.video-wrapper.is-empty .pillars-video-player {
+  visibility: hidden;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .pillars-section .pillar {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+  .video-wrapper {
+    border-radius: 16px;
+  }
+  .pillars-video {
+    margin-top: 36px;
+  }
+}
+
+/* ============================================
+   Fond parallax du hero — image locale
+   ============================================ */
+.hero-animated {
+  --hero-bg: url('../assets/images/hero-bg.jpg');
+}
+
+/* ============================================
+   ADAPTATION VISUELLE — Fond plus visible + lisibilité
+   ============================================ */
+
+/* ---------- HERO : image de fond plus visible ---------- */
+.hero-animated {
+  --hero-bg: url('../assets/images/hero-bg.jpg');
+  position: relative;
+}
+
+.hero-animated .hero-parallax {
+  opacity: 0.45;                 /* était 0.18 — image plus présente */
+  filter: blur(1px) saturate(1.15) brightness(0.85);
+}
+
+/* Overlay dégradé sur le hero pour lisibilité */
+.hero-animated::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(75, 23, 111, 0.72) 0%,
+    rgba(113, 48, 154, 0.45) 50%,
+    rgba(22, 11, 37, 0.65) 100%
+  );
+  z-index: 1;
+  pointer-events: none;
+}
+
+.hero-animated .wrap {
+  position: relative;
+  z-index: 2;
+}
+
+/* Ombres portées sur tous les textes du hero pour lisibilité */
+.hero-animated h1,
+.hero-animated .lead,
+.hero-animated .eyebrow,
+.hero-animated .hero-note {
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.55), 0 1px 3px rgba(0, 0, 0, 0.7);
+}
+
+.hero-animated h1 .accent {
+  text-shadow: 0 2px 16px rgba(242, 138, 27, 0.6), 0 1px 3px rgba(0, 0, 0, 0.7);
+}
+
+/* ---------- SECTION "Notre raison d'être" : image plus visible ---------- */
+.pillars-bg {
+  opacity: 0.55;                 /* était 0.28 — image bien plus présente */
+  filter: blur(1px) saturate(1.2) brightness(0.9);
+}
+
+.pillars-overlay {
+  background: linear-gradient(
+    135deg,
+    rgba(75, 23, 111, 0.72) 0%,
+    rgba(113, 48, 154, 0.40) 50%,
+    rgba(242, 138, 27, 0.35) 100%
+  );
+}
+
+/* Textes de la section piliers : ombre portée */
+.pillars-section h2,
+.pillars-section .kicker,
+.pillars-section .section-head p {
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+}
+
+/* Cartes piliers : verre dépoli plus contrasté */
+.pillars-section .pillar {
+  backdrop-filter: blur(16px) saturate(1.3);
+  -webkit-backdrop-filter: blur(16px) saturate(1.3);
+  background: rgba(22, 11, 37, 0.55);   /* fond plus opaque pour lisibilité */
+  border: 1px solid rgba(255, 179, 79, 0.35);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+}
+.pillars-section .pillar h3 {
+  color: #ffd09a;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+}
+.pillars-section .pillar p {
+  color: #f0e6f4;
+}
+.pillars-section .pillar:hover {
+  background: rgba(22, 11, 37, 0.72);
+  border-color: rgba(255, 179, 79, 0.6);
+}
+
+/* ---------- GALERIE : cadrage adapté et contraste ---------- */
+.gallery-item {
+  position: relative;
+  background: #160b25;           /* fond sombre si image manquante */
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  filter: brightness(0.95) saturate(1.05);
+  transition: transform 0.6s ease, filter 0.4s ease;
+}
+
+.gallery-item:hover img {
+  transform: scale(1.06);
+  filter: brightness(1.05) saturate(1.15);
+}
+
+/* Légende toujours lisible avec un fort dégradé */
+.gallery-item::after {
+  background: linear-gradient(
+    to top,
+    rgba(22, 11, 37, 0.98) 0%,
+    rgba(22, 11, 37, 0.85) 40%,
+    transparent 100%
+  );
+  color: #fffafc;
+  font-weight: 600;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+/* ---------- TÉMOIGNAGES : portraits bien cadrés ---------- */
+.temoignage-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center top;   /* visage en haut */
+  border: 3px solid var(--orange-light);
+  box-shadow: 0 8px 24px rgba(242, 138, 27, 0.5);
+}
+
+.temoignage-quote {
+  color: #fffafc;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
+}
+
+.temoignage-name {
+  color: #ffd09a;
+  font-size: 1rem;
+}
+
+/* ---------- PARTENAIRES : logos bien cadrés ---------- */
+.partner-logo {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 179, 79, 0.25);
+}
+
+.partner-logo img {
+  max-width: 100%;
+  max-height: 60px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  filter: grayscale(1) brightness(1.6) contrast(1.1);
+  opacity: 0.9;
+  transition: filter 0.3s, opacity 0.3s;
+}
+
+.partner-logo:hover img {
+  filter: grayscale(0) brightness(1) contrast(1.05);
+  opacity: 1;
+}
+
+/* ---------- VIDÉO : cadrage propre ---------- */
+.video-wrapper {
+  background: #160b25;
+}
+
+.pillars-video-player {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;   /* vidéo entière visible, pas coupée */
+  background: #000;
+}
+
+/* ---------- LOGO principal : toujours net ---------- */
+.brand img {
+  background: #fff;
+  padding: 4px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+/* ---------- Ajustements responsive ---------- */
+@media (max-width: 850px) {
+  .hero-animated .hero-parallax { opacity: 0.35; }
+  .pillars-bg { opacity: 0.45; }
+  .pillars-section .pillar { background: rgba(22, 11, 37, 0.68); }
+}
+
+@media (max-width: 640px) {
+  .hero-animated .hero-parallax { opacity: 0.28; }
+  .pillars-bg { opacity: 0.4; }
+  .gallery-item img { filter: brightness(1) saturate(1); }
+  .temoignage-avatar { width: 64px; height: 64px; }
+}
+
+/* 🔧 FIX : forcer l'affichage des sections révélées */
+.reveal { opacity: 1 !important; transform: none !important; }
+
+
+/* ============================================
+   CADRAGE INTELLIGENT DES IMAGES PORTRAIT
+   ============================================ */
+
+/* Images portrait : centrer sur la partie haute (visages, mains) */
+.gallery-item img {
+  object-position: center 30% !important;
+}
+
+/* Exception : si l'image est plus haute que large, on centre plus haut */
+.gallery-item img[src*="action-1"],
+.gallery-item img[src*="action-3"],
+.gallery-item img[src*="action-4"] {
+  object-position: center 25% !important;
+}
+
+/* Sur mobile, la galerie est en 1 colonne → on peut tout montrer */
+@media (max-width: 640px) {
+  .gallery-item {
+    aspect-ratio: 4 / 5 !important;  /* format portrait pour les images portrait */
+  }
+  .gallery-item img {
+    object-position: center !important;
+  }
+}
+
+/* ============================================
+   ÉCLAIRCISSEMENT GLOBAL + LUMINOSITÉ
+   ============================================ */
+
+/* ---------- Fond général plus clair et lumineux ---------- */
+body {
+  background:
+    radial-gradient(ellipse at 88% 72%, rgba(255, 179, 79, 0.35), transparent 35%),
+    radial-gradient(ellipse at 82% 12%, rgba(255, 255, 255, 0.28), transparent 38%),
+    radial-gradient(ellipse at 8% 58%, rgba(255, 255, 255, 0.18), transparent 35%),
+    linear-gradient(135deg, #5c2080 0%, #8540b0 45%, #a04bc0 100%) !important;
+}
+
+body::before { opacity: 0.35 !important; }
+body::after  { opacity: 0.32 !important; }
+
+/* ---------- Sections : fond plus clair ---------- */
+.section { padding: 80px 0; }
+
+/* ---------- Overlay hero : moins opaque, plus lumineux ---------- */
+.hero-animated::before {
+  background: linear-gradient(
+    135deg,
+    rgba(26, 23, 24, 0.45) 0%,
+    rgba(89, 70, 61, 0.30) 40%,
+    rgba(139, 54, 165, 0.40) 80%,
+    rgba(26, 23, 24, 0.50) 100%
+  ) !important;
+}
+
+/* Image de fond hero plus lumineuse */
+.hero-animated .hero-parallax {
+  opacity: 0.55 !important;
+  filter: blur(0.5px) saturate(1.25) brightness(1.0) !important;
+}
+
+/* ---------- Section piliers : plus lumineuse ---------- */
+.pillars-overlay {
+  background: linear-gradient(
+    135deg,
+    rgba(26, 23, 24, 0.50) 0%,
+    rgba(89, 70, 61, 0.35) 40%,
+    rgba(203, 167, 79, 0.45) 100%
+  ) !important;
+}
+
+.pillars-bg {
+  opacity: 0.65 !important;
+  filter: blur(0.5px) saturate(1.3) brightness(1.05) !important;
+}
+
+/* ---------- Cartes piliers plus lumineuses ---------- */
+.pillars-section .pillar {
+  background: rgba(255, 250, 252, 0.15) !important;
+  backdrop-filter: blur(18px) saturate(1.4) !important;
+  -webkit-backdrop-filter: blur(18px) saturate(1.4) !important;
+  border: 1px solid rgba(255, 200, 100, 0.55) !important;
+  box-shadow: 0 16px 40px rgba(203, 167, 79, 0.20) !important;
+}
+.pillars-section .pillar h3 {
+  color: #ffe4a0 !important;  /* or plus clair */
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5) !important;
+}
+.pillars-section .pillar p {
+  color: #fffafc !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) !important;
+}
+.pillars-section .pillar:hover {
+  background: rgba(255, 250, 252, 0.25) !important;
+  border-color: rgba(255, 200, 100, 0.85) !important;
+}
+
+/* ---------- Titres/kickers plus lumineux ---------- */
+.kicker {
+  color: #ffd97a !important;  /* or plus clair */
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4) !important;
+}
+
+h1, h2, h3, h4 {
+  color: #fffafc !important;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4) !important;
+}
+
+h1 .accent {
+  color: #ffc966 !important;
+  text-shadow: 0 2px 12px rgba(255, 201, 102, 0.6), 0 1px 3px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* ---------- Paragraphes plus lisibles ---------- */
+p, .lead {
+  color: #f5ecf7 !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25) !important;
+}
+
+/* ---------- Boutons plus lumineux ---------- */
+.button.primary, .nav-cta {
+  background: linear-gradient(110deg, #6b2090, #9c42c0 45%, #ffc966 100%) !important;
+  box-shadow: 0 12px 32px rgba(255, 201, 102, 0.45) !important;
+}
+.button.primary:hover, .nav-cta:hover {
+  box-shadow: 0 16px 40px rgba(255, 201, 102, 0.60) !important;
+}
+
+/* ---------- Compteurs plus lumineux ---------- */
+.counter {
+  background: linear-gradient(110deg, #ffd97a, #ffb84d) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  filter: drop-shadow(0 2px 8px rgba(255, 201, 102, 0.4)) !important;
+}
+
+/* ---------- Navbar plus lumineuse ---------- */
+.nav {
+  background: rgba(107, 32, 144, 0.72) !important;
+  border: 1px solid rgba(255, 200, 100, 0.35) !important;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25) !important;
+}
+
+/* ============================================
+   SÉPARATEUR VAGUE ENTRE HERO ET SECTION SUIVANTE
+   ============================================ */
+
+/* Conteneur du séparateur */
+.hero {
+  position: relative;
+  padding-bottom: 140px !important;  /* plus d'espace pour la vague */
+}
+
+/* Vague décorative en bas du hero */
+.hero::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 120px;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 120' preserveAspectRatio='none'><path fill='%234b176f' fill-opacity='1' d='M0,64L60,58.7C120,53,240,43,360,48C480,53,600,75,720,80C840,85,960,75,1080,64C1200,53,1320,43,1380,37.3L1440,32L1440,120L1380,120C1320,120,1200,120,1080,120C960,120,840,120,720,120C600,120,480,120,360,120C240,120,120,120,60,120L0,120Z'/></svg>");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  z-index: 3;
+  pointer-events: none;
+  opacity: 0.95;
+}
+
+/* Deuxième vague (effet de superposition) */
+.hero::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 90px;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 90' preserveAspectRatio='none'><path fill='%23ffb34f' fill-opacity='0.25' d='M0,48L60,44C120,40,240,32,360,36C480,40,600,56,720,60C840,64,960,56,1080,48C1200,40,1320,32,1380,28L1440,24L1440,90L1380,90C1320,90,1200,90,1080,90C960,90,840,90,720,90C600,90,480,90,360,90C240,90,120,90,60,90L0,90Z'/></svg>");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* La section suivante (missions) commence juste après la vague */
+#missions {
+  padding-top: 20px !important;
+  position: relative;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 640px) {
+  .hero {
+    padding-bottom: 90px !important;
+  }
+  .hero::after { height: 70px; }
+  .hero::before { height: 55px; }
+
+  .pillars-section .pillar {
+    background: rgba(255, 250, 252, 0.18) !important;
+  }
+}
+
+/* ============================================
+   RETOUR AUX COULEURS D'ORIGINE (violet/orange)
+   ============================================ */
+
+:root {
+  --night: #160b25;
+  --night-2: #241036;
+  --purple: #5c1478;
+  --purple-light: #8b36a5;
+  --orange: #f28a1b;
+  --orange-light: #ffb34f;
+  --white: #fffafc;
+  --muted: #d7cbdc;
+  --line: rgba(255, 255, 255, 0.18);
+}
+
+/* Kickers en orange d'origine */
+.kicker {
+  color: var(--orange-light) !important;
+}
+
+/* Boutons violet/orange d'origine */
+.button.primary,
+.nav-cta {
+  background: linear-gradient(110deg, #7620a0, #a02cc0 48%, #f18b1c) !important;
+  box-shadow: 0 10px 28px rgba(148, 42, 174, 0.28) !important;
+}
+
+/* Compteurs orange d'origine */
+.counter {
+  background: linear-gradient(110deg, #ffb34f, #f28a1b) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  filter: drop-shadow(0 2px 8px rgba(242, 138, 27, 0.35)) !important;
+}
+
+/* Témoignages noms en blanc/orange d'origine */
+.temoignage-name {
+  color: #fff !important;
+}
+
+/* Cartes piliers : retour verre violet (pas brun) */
+.pillars-section .pillar {
+  background: rgba(255, 255, 255, 0.10) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.22) !important;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.20) !important;
+}
+.pillars-section .pillar h3 {
+  color: #ffd09a !important;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5) !important;
+}
+.pillars-section .pillar p {
+  color: #f0e6f4 !important;
+}
+.pillars-section .pillar:hover {
+  background: rgba(255, 255, 255, 0.15) !important;
+  border-color: rgba(255, 179, 79, 0.55) !important;
+}
+
+/* Overlays hero/piliers aux couleurs violet/orange d'origine */
+.hero-animated::before {
+  background: linear-gradient(
+    135deg,
+    rgba(75, 23, 111, 0.55) 0%,
+    rgba(113, 48, 154, 0.35) 50%,
+    rgba(22, 11, 37, 0.55) 100%
+  ) !important;
+}
+
+.pillars-overlay {
+  background: linear-gradient(
+    135deg,
+    rgba(75, 23, 111, 0.60) 0%,
+    rgba(113, 48, 154, 0.35) 50%,
+    rgba(242, 138, 27, 0.35) 100%
+  ) !important;
+}
+
+/* Titres en blanc avec ombre subtile */
+h1, h2, h3, h4 {
+  color: #fffafc !important;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.35) !important;
+}
+
+h1 .accent {
+  color: #ffad48 !important;
+  text-shadow: 0 2px 12px rgba(242, 138, 27, 0.5) !important;
+}
+
+/* Paragraphes en blanc cassé d'origine */
+p, .lead {
+  color: #f0e6f4 !important;
+}
+
+/* Navbar d'origine */
+.nav {
+  background: rgba(62, 20, 91, 0.78) !important;
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.18) !important;
+}
+
+/* Vague séparatrice : couleur violet d'origine */
+.hero::after {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 120' preserveAspectRatio='none'><path fill='%234b176f' fill-opacity='1' d='M0,64L60,58.7C120,53,240,43,360,48C480,53,600,75,720,80C840,85,960,75,1080,64C1200,53,1320,43,1380,37.3L1440,32L1440,120L1380,120C1320,120,1200,120,1080,120C960,120,840,120,720,120C600,120,480,120,360,120C240,120,120,120,60,120L0,120Z'/></svg>") !important;
+}
+.hero::before {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 90' preserveAspectRatio='none'><path fill='%23ffb34f' fill-opacity='0.3' d='M0,48L60,44C120,40,240,32,360,36C480,40,600,56,720,60C840,64,960,56,1080,48C1200,40,1320,32,1380,28L1440,24L1440,90L1380,90C1320,90,1200,90,1080,90C960,90,840,90,720,90C600,90,480,90,360,90C240,90,120,90,60,90L0,90Z'/></svg>") !important;
+}
+
+/* Fond général : violet/orange d'origine */
+body {
+  background:
+    radial-gradient(ellipse at 88% 72%, rgba(255, 145, 45, 0.24), transparent 28%),
+    radial-gradient(ellipse at 82% 12%, rgba(255, 255, 255, 0.22), transparent 32%),
+    radial-gradient(ellipse at 8% 58%, rgba(255, 255, 255, 0.12), transparent 30%),
+    linear-gradient(135deg, #4b176f 0%, #71309a 52%, #3d145e 100%) !important;
+}
+
+/* ============================================
+   IMAGE DE FOND GLOBALE SUR TOUT LE SITE
+   + ÉCLAIRCISSEMENT GÉNÉRAL
+   ============================================ */
+
+/* ---------- Image de fond globale sur le body ---------- */
+body {
+  position: relative;
+  background:
+    /* Overlay lumineux violet/orange + image en dessous */
+    radial-gradient(ellipse at 20% 10%, rgba(255, 179, 79, 0.35), transparent 55%),
+    radial-gradient(ellipse at 80% 90%, rgba(139, 54, 165, 0.30), transparent 55%),
+    linear-gradient(135deg,
+      rgba(75, 23, 111, 0.55) 0%,
+      rgba(113, 48, 154, 0.35) 50%,
+      rgba(242, 138, 27, 0.20) 100%
+    ),
+    url('../assets/images/hero-bg.jpg') !important;
+  background-size: cover, cover, cover, cover !important;
+  background-position: center, center, center, center !important;
+  background-attachment: fixed, fixed, fixed, fixed !important;
+  background-repeat: no-repeat !important;
+  background-blend-mode: normal, normal, multiply, normal !important;
+}
+
+/* Le halo lumineux au-dessus de l'image */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 50% 20%, rgba(255, 255, 255, 0.20), transparent 60%),
+    radial-gradient(ellipse at 50% 80%, rgba(255, 179, 79, 0.15), transparent 60%);
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Halo orange en bas à gauche (plus lumineux) */
+body::after {
+  content: "";
+  position: fixed;
+  bottom: -200px;
+  left: -150px;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(255, 179, 79, 0.35), transparent 70%);
+  filter: blur(80px);
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.6 !important;
+}
+
+/* ============================================
+   SECTIONS : FONDS PLUS CLAIRS ET LUMINEUX
+   ============================================ */
+
+/* Toutes les sections avec un léger voile sombre pour lisibilité */
+.section {
+  position: relative;
+}
+.section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(22, 11, 37, 0.25);
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Sections "glass" (actions, témoignages) : voile plus clair */
+.section-glass::before {
+  background: rgba(22, 11, 37, 0.35) !important;
+  backdrop-filter: blur(4px) !important;
+  -webkit-backdrop-filter: blur(4px) !important;
+}
+
+/* ============================================
+   HERO : toujours lumineux, sans image redondante
+   ============================================ */
+
+.hero-animated {
+  background: linear-gradient(135deg, #5c2080, #8540b0, #f28a1b, #5c2080) !important;
+  background-size: 400% 400% !important;
+  animation: gradientShift 18s ease infinite !important;
+}
+
+/* Overlay du hero : plus transparent, plus lumineux */
+.hero-animated::before {
+  background: linear-gradient(
+    135deg,
+    rgba(92, 32, 128, 0.55) 0%,
+    rgba(133, 64, 176, 0.35) 50%,
+    rgba(242, 138, 27, 0.30) 100%
+  ) !important;
+}
+
+/* ============================================
+   SECTION PILIERS : fond transparent (voit l'image globale)
+   ============================================ */
+
+/* On retire l'image dédiée : le fond global suffit */
+.pillars-bg {
+  display: none !important;
+}
+
+.pillars-overlay {
+  background: linear-gradient(
+    135deg,
+    rgba(92, 32, 128, 0.55) 0%,
+    rgba(133, 64, 176, 0.35) 50%,
+    rgba(255, 179, 79, 0.25) 100%
+  ) !important;
+}
+
+/* Cartes piliers : verre clair et lumineux */
+.pillars-section .pillar {
+  background: rgba(255, 250, 252, 0.12) !important;
+  backdrop-filter: blur(18px) saturate(1.3) !important;
+  -webkit-backdrop-filter: blur(18px) saturate(1.3) !important;
+  border: 1px solid rgba(255, 179, 79, 0.40) !important;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.20), inset 0 1px 0 rgba(255, 255, 255, 0.10) !important;
+}
+.pillars-section .pillar h3 {
+  color: #ffd09a !important;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5) !important;
+}
+.pillars-section .pillar p {
+  color: #fffafc !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) !important;
+}
+.pillars-section .pillar:hover {
+  background: rgba(255, 250, 252, 0.20) !important;
+  border-color: rgba(255, 179, 79, 0.70) !important;
+  transform: translateY(-6px) !important;
+}
+
+/* ============================================
+   TOUS LES TEXTES : PLUS BLANCS ET LUMINEUX
+   ============================================ */
+
+h1, h2, h3, h4 {
+  color: #fffafc !important;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.45) !important;
+}
+
+h1 .accent {
+  color: #ffc966 !important;
+  text-shadow: 0 2px 16px rgba(255, 179, 79, 0.65), 0 1px 3px rgba(0, 0, 0, 0.5) !important;
+}
+
+.kicker {
+  color: #ffd97a !important;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5) !important;
+}
+
+p, .lead {
+  color: #faf5fc !important;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.35) !important;
+}
+
+.eyebrow {
+  color: #ffe4a0 !important;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4) !important;
+}
+
+/* ============================================
+   NAVBAR : plus lumineuse
+   ============================================ */
+
+.nav {
+  background: rgba(107, 32, 144, 0.72) !important;
+  backdrop-filter: blur(20px) saturate(1.4) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(1.4) !important;
+  border: 1px solid rgba(255, 179, 79, 0.35) !important;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.15) !important;
+}
+
+.navlinks a {
+  color: #fff5e6 !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) !important;
+}
+.navlinks a:hover {
+  color: #ffd97a !important;
+}
+
+/* ============================================
+   BOUTONS : violets/orangés lumineux
+   ============================================ */
+
+.button.primary, .nav-cta {
+  background: linear-gradient(110deg, #8b30b8, #a84acc 45%, #ffa03a) !important;
+  box-shadow: 0 12px 32px rgba(255, 140, 40, 0.40) !important;
+}
+.button.primary:hover, .nav-cta:hover {
+  box-shadow: 0 16px 40px rgba(255, 140, 40, 0.60) !important;
+  transform: translateY(-2px) !important;
+}
+
+.button.secondary {
+  background: rgba(255, 250, 252, 0.12) !important;
+  border: 1px solid rgba(255, 179, 79, 0.40) !important;
+  color: #fffafc !important;
+}
+.button.secondary:hover {
+  background: rgba(255, 250, 252, 0.20) !important;
+  border-color: rgba(255, 179, 79, 0.70) !important;
+}
+
+/* ============================================
+   COMPTEURS, TÉMOIGNAGES, PARTENAIRES : lumineux
+   ============================================ */
+
+.counter {
+  background: linear-gradient(110deg, #ffd97a, #ffb34f, #ff8a1b) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  filter: drop-shadow(0 2px 10px rgba(255, 179, 79, 0.45)) !important;
+}
+
+.temoignage-quote {
+  color: #fffafc !important;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.4) !important;
+}
+
+.temoignage-name {
+  color: #ffd97a !important;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4) !important;
+}
+
+.temoignage-role {
+  color: #f0e6f4 !important;
+}
+
+.temoignage-avatar {
+  border: 3px solid #ffd97a !important;
+  box-shadow: 0 8px 24px rgba(255, 179, 79, 0.55) !important;
+}
+
+.partner-logo {
+  background: rgba(255, 250, 252, 0.10) !important;
+  border: 1px solid rgba(255, 179, 79, 0.30) !important;
+}
+.partner-logo:hover {
+  background: rgba(255, 250, 252, 0.20) !important;
+  border-color: rgba(255, 179, 79, 0.60) !important;
+}
+
+/* ============================================
+   FOOTER : plus lumineux
+   ============================================ */
+
+footer {
+  background: rgba(22, 11, 37, 0.35) !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  border-top: 1px solid rgba(255, 179, 79, 0.25) !important;
+  color: #f0e6f4 !important;
+}
+
+.footer-brand { color: #fffafc !important; }
+.footer-motto { color: #ffd97a !important; }
+
+/* ============================================
+   CTA PANEL : lumineux
+   ============================================ */
+
+.cta-panel {
+  background: linear-gradient(110deg, rgba(139, 48, 184, 0.90), rgba(255, 179, 79, 0.30), rgba(107, 32, 144, 0.85)) !important;
+  border: 1px solid rgba(255, 179, 79, 0.40) !important;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.15) !important;
+}
+
+.cta-panel p { color: #faf5fc !important; }
+
+/* ============================================
+   VAGUE SÉPARATRICE : lumineuse aussi
+   ============================================ */
+
+.hero::after {
+  opacity: 0.85 !important;
+}
+.hero::before {
+  opacity: 0.8 !important;
+}
+
+/* ============================================
+   GALERIE : plus lumineuse
+   ============================================ */
+
+.gallery-item {
+  border: 1px solid rgba(255, 179, 79, 0.30) !important;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.30), 0 0 0 1px rgba(255, 255, 255, 0.05) !important;
+}
+
+.gallery-item:hover {
+  border-color: rgba(255, 179, 79, 0.65) !important;
+  box-shadow: 0 20px 50px rgba(255, 140, 40, 0.30) !important;
+}
+
+/* ============================================
+   VIDÉO : cadre lumineux
+   ============================================ */
+
+.video-wrapper {
+  border: 1px solid rgba(255, 179, 79, 0.35) !important;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.40), 0 0 0 1px rgba(255, 255, 255, 0.05) !important;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 850px) {
+  body {
+    background-attachment: scroll, scroll, scroll, scroll !important;
+  }
+  .section::before {
+    background: rgba(22, 11, 37, 0.35);
+  }
+}
+
+@media (max-width: 640px) {
+  .pillars-section .pillar {
+    background: rgba(255, 250, 252, 0.15) !important;
+  }
+  .gallery-item {
+    border-color: rgba(255, 179, 79, 0.25) !important;
+  }
+}
+
+/* ============================================
+   IMAGE DE FOND GLOBALE ANIMÉE (Ken Burns)
+   ============================================ */
+
+/* Couche image fixe derrière tout le contenu */
+.site-bg {
+  position: fixed;
+  inset: -5%;                    /* légèrement plus grand pour le zoom */
+  background-image: url('../assets/images/hero-bg.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: -3;
+  pointer-events: none;
+  animation: siteBgKenBurns 30s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+/* Overlay violet/orange lumineux au-dessus */
+.site-bg-overlay {
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 20% 10%, rgba(255, 179, 79, 0.30), transparent 55%),
+    radial-gradient(ellipse at 80% 90%, rgba(139, 54, 165, 0.25), transparent 55%),
+    linear-gradient(135deg,
+      rgba(75, 23, 111, 0.55) 0%,
+      rgba(113, 48, 154, 0.35) 50%,
+      rgba(242, 138, 27, 0.20) 100%
+    );
+  z-index: -2;
+  pointer-events: none;
+}
+
+/* Effet Ken Burns : zoom + léger déplacement en boucle */
+@keyframes siteBgKenBurns {
+  0% {
+    transform: scale(1) translate(0, 0);
+  }
+  50% {
+    transform: scale(1.12) translate(-2%, -1%);
+  }
+  100% {
+    transform: scale(1.18) translate(2%, 1%);
+  }
+}
+
+/* Le body n'a plus besoin du background-image (la couche s'en occupe) */
+body {
+  background: transparent !important;
+  background-attachment: scroll !important;
+}
+
+/* On garde les halos lumineux du body::before et body::after */
+body::before {
+  z-index: -1 !important;
+}
+
+body::after {
+  z-index: -1 !important;
+}
+
+/* Responsive : sur mobile, on ralentit l'animation pour économiser la batterie */
+@media (max-width: 850px) {
+  .site-bg {
+    animation-duration: 45s;
+  }
+}
+
+/* Accessibilité : si l'utilisateur préfère les animations réduites */
+@media (prefers-reduced-motion: reduce) {
+  .site-bg {
+    animation: none !important;
+    transform: scale(1.05);
+  }
+}
+
+/* ============================================
+   BADGE FLOTTANT "TÉLÉCHARGER L'APPLICATION"
+   Icône téléphone qui sautille
+   ============================================ */
+
+.app-download-badge {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 20px 14px 16px;
+  border-radius: 999px;
+  background: linear-gradient(110deg, #8b30b8, #a84acc 45%, #ffa03a);
+  color: #fffafc;
+  text-decoration: none;
+  font-family: inherit;
+  box-shadow:
+    0 16px 40px rgba(255, 140, 40, 0.45),
+    0 8px 20px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  max-width: calc(100vw - 48px);
+  animation: badgeEntrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 1.5s both;
+}
+
+.app-download-badge:hover {
+  transform: translateY(-4px) scale(1.03);
+  box-shadow:
+    0 20px 50px rgba(255, 140, 40, 0.60),
+    0 12px 28px rgba(0, 0, 0, 0.30),
+    inset 0 1px 0 rgba(255, 255, 255, 0.30);
+}
+
+/* Entrée animée : glisse depuis la droite */
+@keyframes badgeEntrance {
+  0%   { transform: translateX(150%); opacity: 0; }
+  100% { transform: translateX(0); opacity: 1; }
+}
+
+/* ============================================
+   ICÔNE TÉLÉPHONE QUI SAUTILLE
+   ============================================ */
+
+.app-badge-icon {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.20);
+  color: #fffafc;
+  flex-shrink: 0;
+  animation: phoneJump 2s ease-in-out infinite;
+  transform-origin: center bottom;
+  will-change: transform;
+}
+
+.app-badge-icon svg {
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.25));
+}
+
+/* Sautillement : rebond + rotation légère */
+@keyframes phoneJump {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  10% {
+    transform: translateY(-8px) rotate(-8deg);
+  }
+  20% {
+    transform: translateY(0) rotate(0deg);
+  }
+  30% {
+    transform: translateY(-4px) rotate(5deg);
+  }
+  40%, 90% {
+    transform: translateY(0) rotate(0deg);
+  }
+}
+
+/* Anneau pulsant autour de l'icône (effet halo) */
+.app-badge-icon::before {
+  content: "";
+  position: absolute;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255, 179, 79, 0.4);
+  z-index: -1;
+  animation: phoneHalo 2s ease-out infinite;
+}
+
+@keyframes phoneHalo {
+  0%   { transform: scale(1); opacity: 0.7; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+
+/* ============================================
+   TEXTE DU BADGE
+   ============================================ */
+
+.app-badge-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  line-height: 1.15;
+}
+
+.app-badge-title {
+  font-size: 0.9rem;
+  font-weight: 750;
+  letter-spacing: 0.01em;
+}
+
+.app-badge-subtitle {
+  font-size: 0.72rem;
+  opacity: 0.88;
+  font-weight: 500;
+}
+
+/* ============================================
+   BOUTON FERMER (×)
+   ============================================ */
+
+.app-badge-close {
+  margin-left: 6px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: rgba(0, 0, 0, 0.20);
+  color: #fffafc;
+  font-size: 1.1rem;
+  font-weight: 400;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.2s;
+  flex-shrink: 0;
+}
+
+.app-badge-close:hover {
+  background: rgba(0, 0, 0, 0.40);
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+/* Sur mobile, on simplifie : juste l'icône + texte court */
+@media (max-width: 640px) {
+  .app-download-badge {
+    bottom: 16px;
+    right: 16px;
+    padding: 10px 14px 10px 10px;
+    gap: 10px;
+    max-width: calc(100vw - 32px);
+  }
+
+  .app-badge-icon {
+    width: 38px;
+    height: 38px;
+  }
+
+  .app-badge-icon svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .app-badge-title {
+    font-size: 0.82rem;
+  }
+
+  .app-badge-subtitle {
+    display: none;   /* cache le sous-titre sur mobile */
+  }
+
+  .app-badge-close {
+    width: 20px;
+    height: 20px;
+    font-size: 1rem;
+  }
+}
+
+/* Sur très petit écran, on ne garde que l'icône */
+@media (max-width: 380px) {
+  .app-badge-title {
+    display: none;
+  }
+  .app-download-badge {
+    padding: 10px;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    justify-content: center;
+  }
+}
+
+/* Accessibilité : pas d'animation si prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .app-download-badge,
+  .app-badge-icon,
+  .app-badge-icon::before {
+    animation: none !important;
+  }
+}
+
+/* ============================================
+   BOUTON "FAIRE UN DON" — NAVBAR
+   ============================================ */
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-donate {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border-radius: 999px;
+  background: linear-gradient(110deg, #ff4d6d, #ff8a1b);
+  color: #fffafc;
+  font-weight: 750;
+  font-size: 0.85rem;
+  text-decoration: none;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow:
+    0 8px 24px rgba(255, 61, 109, 0.40),
+    inset 0 1px 0 rgba(255, 255, 255, 0.20);
+  transition: transform 0.2s, box-shadow 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+
+.nav-donate:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 12px 32px rgba(255, 61, 109, 0.60),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+/* Cœur qui pulse dans le bouton */
+.nav-donate svg {
+  animation: heartPulse 1.6s ease-in-out infinite;
+  transform-origin: center;
+}
+
+@keyframes heartPulse {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.25); }
+}
+
+/* Reflet animé sur le bouton */
+.nav-donate::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+  animation: donateShine 3s ease-in-out infinite;
+}
+
+@keyframes donateShine {
+  0%, 100% { left: -100%; }
+  50%      { left: 100%; }
+}
+
+/* Lien don dans le menu mobile */
+.navlinks-donate {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px !important;
+  border-radius: 10px;
+  background: linear-gradient(110deg, rgba(255, 61, 109, 0.20), rgba(255, 138, 27, 0.20)) !important;
+  color: #ffd0d8 !important;
+  font-weight: 700;
+  border: 1px solid rgba(255, 61, 109, 0.35);
+}
+
+.navlinks-donate:hover {
+  background: linear-gradient(110deg, rgba(255, 61, 109, 0.35), rgba(255, 138, 27, 0.35)) !important;
+  color: #fff !important;
+}
+
+/* ============================================
+   PANNEAU "FAIRE UN DON" — SECTION
+   ============================================ */
+
+.don-panel {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 56px 40px;
+  border-radius: 32px;
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(255, 61, 109, 0.20), transparent 60%),
+    linear-gradient(145deg, rgba(255, 250, 252, 0.14), rgba(255, 250, 252, 0.05));
+  border: 1px solid rgba(255, 140, 180, 0.30);
+  box-shadow:
+    0 24px 70px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+/* Halo lumineux pulsant derrière */
+.don-panel::before {
+  content: "";
+  position: absolute;
+  top: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(255, 138, 27, 0.25), transparent 70%);
+  filter: blur(60px);
+  z-index: -1;
+  animation: donGlow 4s ease-in-out infinite;
+}
+
+@keyframes donGlow {
+  0%, 100% { opacity: 0.5; transform: translateX(-50%) scale(1); }
+  50%      { opacity: 1; transform: translateX(-50%) scale(1.15); }
+}
+
+/* Icône cœur principale */
+.don-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ff4d6d, #ff8a1b);
+  color: #fff;
+  margin-bottom: 24px;
+  box-shadow:
+    0 16px 40px rgba(255, 61, 109, 0.50),
+    inset 0 2px 0 rgba(255, 255, 255, 0.30);
+  animation: donIconBeat 2s ease-in-out infinite;
+}
+
+@keyframes donIconBeat {
+  0%, 100% { transform: scale(1); }
+  15%      { transform: scale(1.10); }
+  30%      { transform: scale(1); }
+  45%      { transform: scale(1.06); }
+}
+
+.don-icon svg {
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.25));
+}
+
+.don-lead {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  max-width: 620px;
+  margin: 0 auto 32px;
+  color: #faf5fc;
+}
+
+/* ============================================
+   SÉLECTEUR DE MONTANTS
+   ============================================ */
+
+.don-amounts {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  max-width: 720px;
+  margin: 0 auto 32px;
+}
+
+.don-amount {
+  padding: 16px 12px;
+  border-radius: 14px;
+  border: 2px solid rgba(255, 140, 180, 0.25);
+  background: rgba(255, 250, 252, 0.08);
+  color: #fffafc;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 750;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.don-amount:hover {
+  border-color: rgba(255, 140, 180, 0.55);
+  background: rgba(255, 250, 252, 0.15);
+  transform: translateY(-2px);
+}
+
+.don-amount.active {
+  background: linear-gradient(110deg, #ff4d6d, #ff8a1b);
+  border-color: transparent;
+  color: #fff;
+  box-shadow: 0 8px 24px rgba(255, 61, 109, 0.45);
+  transform: translateY(-2px) scale(1.03);
+}
+
+/* ============================================
+   BOUTONS D'ACTION DON
+   ============================================ */
+
+.don-actions {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 32px;
+}
+
+.don-btn {
+  background: linear-gradient(110deg, #ff4d6d, #ff8a1b) !important;
+  box-shadow: 0 12px 32px rgba(255, 61, 109, 0.50) !important;
+  font-size: 1rem !important;
+  padding: 16px 28px !important;
+}
+
+.don-btn svg {
+  animation: heartPulse 1.6s ease-in-out infinite;
+}
+
+.don-btn:hover {
+  box-shadow: 0 16px 40px rgba(255, 61, 109, 0.70) !important;
+}
+
+/* ============================================
+   IMPACT DU DON (3 chiffres)
+   ============================================ */
+
+.don-impact {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 32px;
+  padding-top: 32px;
+  border-top: 1px solid rgba(255, 140, 180, 0.20);
+}
+
+.don-impact-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 16px;
+  border-radius: 14px;
+  background: rgba(255, 250, 252, 0.05);
+  transition: background 0.3s;
+}
+
+.don-impact-item:hover {
+  background: rgba(255, 250, 252, 0.10);
+}
+
+.don-impact-item strong {
+  font-size: 1.15rem;
+  color: #ffd97a;
+  font-weight: 800;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+.don-impact-item span {
+  font-size: 0.85rem;
+  color: #faf5fc;
+  opacity: 0.90;
+  line-height: 1.4;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 850px) {
+  .nav-actions { gap: 6px; }
+  .nav-donate { padding: 8px 14px; font-size: 0.78rem; }
+  .nav-donate svg { width: 14px; height: 14px; }
+
+  .don-panel { padding: 40px 24px; }
+  .don-amounts { grid-template-columns: repeat(2, 1fr); }
+  .don-impact { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 640px) {
+  .nav-donate { display: none; }   /* caché sur mobile, présent dans le menu */
+
+  .don-icon { width: 72px; height: 72px; }
+  .don-icon svg { width: 36px; height: 36px; }
+
+  .don-lead { font-size: 0.95rem; }
+
+  .don-amounts { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  .don-amount { padding: 12px 8px; font-size: 0.9rem; }
+
+  .don-actions { flex-direction: column; }
+  .don-btn { width: 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-donate svg,
+  .nav-donate::before,
+  .don-icon,
+  .don-panel::before,
+  .don-btn svg {
+    animation: none !important;
+  }
+}
+
+/* ============================================
+   BADGE FLOTTANT "FAIRE UN DON" (cœur qui bat)
+   Placé à gauche du badge téléphone
+   ============================================ */
+
+.donate-float {
+  position: fixed;
+  bottom: 100px;
+  right: 24px;
+  z-index: 9998;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 18px;
+  border-radius: 999px;
+  background: linear-gradient(110deg, #ff4d6d, #ff8a1b);
+  color: #fffafc;
+  text-decoration: none;
+  font-weight: 750;
+  font-size: 0.85rem;
+  box-shadow:
+    0 16px 40px rgba(255, 61, 109, 0.50),
+    0 8px 20px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  animation: badgeEntrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 2s both;
+}
+
+.donate-float:hover {
+  transform: translateY(-4px) scale(1.03);
+  box-shadow:
+    0 20px 50px rgba(255, 61, 109, 0.70),
+    0 12px 28px rgba(0, 0, 0, 0.30);
+}
+
+.donate-float svg {
+  animation: heartPulse 1.5s ease-in-out infinite;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.25));
+}
+
+@media (max-width: 640px) {
+  .donate-float {
+    bottom: 88px;
+    right: 16px;
+    padding: 10px 14px;
+    font-size: 0.78rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .donate-float, .donate-float svg { animation: none !important; }
+}
+
+/* ============================================
+   BADGE FLOTTANT "FAIRE UN DON" (cœur qui bat)
+   Placé à gauche du badge téléphone
+   ============================================ */
+
+.donate-float {
+  position: fixed;
+  bottom: 100px;
+  right: 24px;
+  z-index: 9998;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 18px;
+  border-radius: 999px;
+  background: linear-gradient(110deg, #ff4d6d, #ff8a1b);
+  color: #fffafc;
+  text-decoration: none;
+  font-weight: 750;
+  font-size: 0.85rem;
+  box-shadow:
+    0 16px 40px rgba(255, 61, 109, 0.50),
+    0 8px 20px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  animation: badgeEntrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 2s both;
+}
+
+.donate-float:hover {
+  transform: translateY(-4px) scale(1.03);
+  box-shadow:
+    0 20px 50px rgba(255, 61, 109, 0.70),
+    0 12px 28px rgba(0, 0, 0, 0.30);
+}
+
+.donate-float svg {
+  animation: heartPulse 1.5s ease-in-out infinite;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.25));
+}
+
+@media (max-width: 640px) {
+  .donate-float {
+    bottom: 88px;
+    right: 16px;
+    padding: 10px 14px;
+    font-size: 0.78rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .donate-float, .donate-float svg { animation: none !important; }
+}
+
+/* ============================================
+   CORRECTION : panneau don aligné sur la charte
+   ============================================ */
+
+/* Le .don-panel devient transparent (l'image de fond passe à travers) */
+.don-panel {
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(255, 61, 109, 0.12), transparent 60%),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02)) !important;
+  border: 1px solid rgba(255, 179, 79, 0.30) !important;
+  box-shadow:
+    0 24px 70px rgba(0, 0, 0, 0.40),
+    inset 0 1px 0 rgba(255, 255, 255, 0.10) !important;
+  backdrop-filter: blur(18px) saturate(1.3) !important;
+  -webkit-backdrop-filter: blur(18px) saturate(1.3) !important;
+}
+
+/* Les cartes de réassurance : même style que les .pillar */
+#dons .card,
+.dons-page .card {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+}
+
+#dons .card h3,
+.dons-page .card h3 {
+  color: #ffd09a !important;
+}
+
+#dons .card p,
+.dons-page .card p {
+  color: #f0e6f4 !important;
+}
+
+/* Le bouton principal don garde ses couleurs vives */
+.don-btn {
+  background: linear-gradient(110deg, #ff4d6d, #ff8a1b) !important;
+  box-shadow: 0 12px 32px rgba(255, 61, 109, 0.50) !important;
+  font-size: 1rem !important;
+  padding: 16px 28px !important;
+}
+
+/* Le sélecteur de montants sur fond sombre */
+.don-amount {
+  background: rgba(255, 255, 255, 0.06) !important;
+  border: 2px solid rgba(255, 179, 79, 0.25) !important;
+  color: #fffafc !important;
+}
+.don-amount:hover {
+  background: rgba(255, 255, 255, 0.12) !important;
+  border-color: rgba(255, 179, 79, 0.55) !important;
+}
+.don-amount.active {
+  background: linear-gradient(110deg, #ff4d6d, #ff8a1b) !important;
+  border-color: transparent !important;
+  color: #fff !important;
+  box-shadow: 0 8px 24px rgba(255, 61, 109, 0.45) !important;
+}
+
+/* Les 3 impacts en bas */
+.don-impact-item {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid rgba(255, 179, 79, 0.15) !important;
+}
+.don-impact-item:hover {
+  background: rgba(255, 255, 255, 0.10) !important;
+}
+.don-impact-item strong {
+  color: #ffd97a !important;
+}
+.don-impact-item span {
+  color: #faf5fc !important;
+}
+
+/* ============================================
+   CHAMP DE SAISIE DIRECTE DU MONTANT
+   Remplace le bouton "Autre montant"
+   ============================================ */
+
+.don-custom-input {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  border-radius: 14px;
+  border: 2px solid rgba(255, 179, 79, 0.30);
+  background: rgba(255, 255, 255, 0.06);
+  transition: all 0.25s ease;
+  grid-column: span 1;
+}
+
+.don-custom-input:focus-within {
+  border-color: rgba(255, 179, 79, 0.80);
+  background: rgba(255, 179, 79, 0.10);
+  box-shadow: 0 0 0 3px rgba(255, 179, 79, 0.15);
+}
+
+/* Le champ input lui-même */
+.don-amount-input {
+  flex: 1;
+  min-width: 0;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #fffafc;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 750;
+  text-align: right;
+  padding: 0;
+}
+
+.don-amount-input::placeholder {
+  color: rgba(255, 250, 252, 0.55);
+  font-weight: 500;
+  text-align: center;
+}
+
+/* Cacher les flèches up/down du input number */
+.don-amount-input::-webkit-outer-spin-button,
+.don-amount-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.don-amount-input[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+/* Le "FCFA" à droite du champ */
+.don-custom-unit {
+  color: rgba(255, 250, 252, 0.75);
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  flex-shrink: 0;
+}
+
+/* Sur mobile : le champ prend toute la largeur */
+@media (max-width: 640px) {
+  .don-custom-input {
+    padding: 10px 14px;
+  }
+  .don-amount-input {
+    font-size: 0.9rem;
+  }
+  .don-custom-unit {
+    font-size: 0.78rem;
+  }
+}
+
+/* ============================================
+   CHAMP DE SAISIE : état "rempli"
+   ============================================ */
+
+.don-custom-input.has-value {
+  border-color: rgba(255, 179, 79, 0.85);
+  background: rgba(255, 179, 79, 0.15);
+  box-shadow: 0 0 0 3px rgba(255, 179, 79, 0.20), 0 8px 24px rgba(255, 61, 109, 0.25);
+}
+
+.don-custom-input.has-value .don-amount-input {
+  color: #ffd97a;
+  font-size: 1.05rem;
+}
+
+.don-custom-input.has-value .don-custom-unit {
+  color: #ffd97a;
+}
+
+/* ============================================
+   VERRE FLouté LUMINEUX — GLOBAL
+   Toutes les fenêtres transparentes deviennent :
+   - Plus floutées (blur 20-24px)
+   - Plus lumineuses (fond plus clair)
+   - Bordures éclatantes dorées
+   - Halos lumineux
+   ============================================ */
+
+/* ---------- CARTES GÉNÉRIQUES ---------- */
+.card {
+  background:
+    linear-gradient(145deg,
+      rgba(255, 255, 255, 0.18) 0%,
+      rgba(255, 255, 255, 0.08) 100%
+    ) !important;
+  backdrop-filter: blur(22px) saturate(1.4) !important;
+  -webkit-backdrop-filter: blur(22px) saturate(1.4) !important;
+  border: 1px solid rgba(255, 220, 150, 0.45) !important;
+  box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.30),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25),
+    0 0 40px rgba(255, 179, 79, 0.15) !important;
+}
+
+.card:hover {
+  background:
+    linear-gradient(145deg,
+      rgba(255, 255, 255, 0.24) 0%,
+      rgba(255, 255, 255, 0.12) 100%
+    ) !important;
+  border-color: rgba(255, 220, 150, 0.75) !important;
+  box-shadow:
+    0 24px 60px rgba(255, 140, 40, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.30),
+    0 0 60px rgba(255, 179, 79, 0.25) !important;
+}
+
+/* ---------- PILLARS (4 piliers) ---------- */
+.pillars-section .pillar {
+  background:
+    linear-gradient(145deg,
+      rgba(255, 255, 255, 0.20) 0%,
+      rgba(255, 255, 255, 0.08) 100%
+    ) !important;
+  backdrop-filter: blur(24px) saturate(1.5) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(1.5) !important;
+  border: 1px solid rgba(255, 220, 150, 0.50) !important;
+  box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.30),
+    inset 0 1px 0 rgba(255, 255, 255, 0.30),
+    0 0 40px rgba(255, 179, 79, 0.18) !important;
+}
+
+.pillars-section .pillar:hover {
+  background:
+    linear-gradient(145deg,
+      rgba(255, 255, 255, 0.28) 0%,
+      rgba(255, 255, 255, 0.14) 100%
+    ) !important;
+  border-color: rgba(255, 220, 150, 0.85) !important;
+  box-shadow:
+    0 24px 60px rgba(255, 140, 40, 0.40),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35),
+    0 0 60px rgba(255, 179, 79, 0.30) !important;
+}
+
+/* ---------- PANEAU DON ---------- */
+.don-panel {
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(255, 61, 109, 0.18), transparent 60%),
+    linear-gradient(145deg,
+      rgba(255, 255, 255, 0.18) 0%,
+      rgba(255, 255, 255, 0.06) 100%
+    ) !important;
+  backdrop-filter: blur(24px) saturate(1.5) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(1.5) !important;
+  border: 1px solid rgba(255, 220, 150, 0.50) !important;
+  box-shadow:
+    0 28px 80px rgba(0, 0, 0, 0.40),
+    inset 0 1px 0 rgba(255, 255, 255, 0.30),
+    0 0 60px rgba(255, 61, 109, 0.20) !important;
+}
+
+/* ---------- BOUTONS SECONDARY (transparents) ---------- */
+.button.secondary {
+  background:
+    linear-gradient(145deg,
+      rgba(255, 255, 255, 0.16) 0%,
+      rgba(255, 255, 255, 0.06) 100%
+    ) !important;
+  backdrop-filter: blur(18px) saturate(1.3) !important;
+  -webkit-backdrop-filter: blur(18px) saturate(1.3) !important;
+  border: 1px solid rgba(255, 220, 150, 0.45) !important;
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.20),
+    inset 0 1px 0 rgba(255, 255, 255, 0.20) !important;
+  color: #fffafc !important;
+}
+
+.button.secondary:hover {
+  background:
+    linear-gradient(145deg,
+      rgba(255, 255, 255, 0.24) 0%,
+      rgba(255, 255, 255, 0.12) 100%
+    ) !important;
+  border-color: rgba(255, 220, 150, 0.75) !important;
+  box-shadow:
+    0 12px 32px rgba(255, 179, 79, 0.30),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25) !important;
+}
+
+/* ---------- NAVBAR (topbar) ---------- */
+.nav {
+  background:
+    linear-gradient(145deg,
+      rgba(107, 32, 144, 0.75) 0%,
+      rgba(75, 23, 111, 0.65) 100%
+    ) !important;
+  backdrop-filter: blur(24px) saturate(1.5) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(1.5) !important;
+  border: 1px solid rgba(255, 220, 150, 0.35) !important;
+  box-shadow:
+    0 16px 50px rgba(0, 0, 0, 0.30),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    0 0 40px rgba(255, 179, 79, 0.12) !important;
+}
+
+/* ---------- CTA PANEL ---------- */
+.cta-panel {
+  background:
+    linear-gradient(145deg,
+      rgba(255, 255, 255, 0.16) 0%,
+      rgba(255, 255, 255, 0.06) 100%
+    ) !important;
+  backdrop-filter: blur(24px) saturate(1.5) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(1.5) !important;
+  border: 1px solid rgba(255, 220, 150, 0.45) !important;
+  box-shadow:
+    0 28px 80px rgba(0, 0, 0, 0.40),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25),
+    0 0 60px rgba(255, 179, 79, 0.20) !important;
+}
+
+.cta-panel p {
+  color: #fffafc !important;
+}
+
+/* ---------- VIDÉO WRAPPER ---------- */
+.video-wrapper {
+  background: rgba(22, 11, 37, 0.60) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border: 1px solid rgba(255, 220, 150, 0.45) !important;
+  box-shadow:
+    0 24px 70px rgba(0, 0, 0, 0.40),
+    0 0 60px rgba(255, 179, 79, 0.15) !important;
+}
+
+/* ---------- ALERTES (bandeau info) ---------- */
+.alert {
+  background:
+    linear-gradient(145deg,
+      rgba(255, 179, 79, 0.18) 0%,
+      rgba(255, 179, 79, 0.08) 100%
+    ) !important;
+  backdrop-filter: blur(18px) !important;
+  -webkit-backdrop-filter: blur(18px) !important;
+  border: 1px solid rgba(255, 220, 150, 0.55) !important;
+  box-shadow:
+    0 8px 24px rgba(255, 140, 40, 0.20),
+    inset 0 1px 0 rgba(255, 255, 255, 0.20) !important;
+  color: #fff5e0 !important;
+}
+
+.alert strong {
+  color: #ffd97a !important;
+}
+
+/* ---------- BADGES FLOTTANTS ---------- */
+.donate-float {
+  background: linear-gradient(110deg, #ff4d6d, #ff8a1b) !important;
+  backdrop-filter: blur(20px) saturate(1.4) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(1.4) !important;
+  box-shadow:
+    0 20px 50px rgba(255, 61, 109, 0.55),
+    0 10px 25px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.30) !important;
+}
+
+.donate-float:hover {
+  box-shadow:
+    0 24px 60px rgba(255, 61, 109, 0.75),
+    0 14px 30px rgba(0, 0, 0, 0.30),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35) !important;
+}
+
+.app-download-badge {
+  background: linear-gradient(110deg, #8b30b8, #a84acc 45%, #ffa03a) !important;
+  backdrop-filter: blur(20px) saturate(1.4) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(1.4) !important;
+  box-shadow:
+    0 20px 50px rgba(255, 140, 40, 0.55),
+    0 10px 25px rgba(0, 0, 0, 0.30),
+    inset 0 1px 0 rgba(255, 255, 255, 0.30) !important;
+}
+
+.app-download-badge:hover {
+  box-shadow:
+    0 24px 60px rgba(255, 140, 40, 0.75),
+    0 14px 30px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35) !important;
+}
+
+/* L'icône téléphone dans le badge : fond plus lumineux */
+.app-badge-icon {
+  background: rgba(255, 255, 255, 0.28) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35) !important;
+}
+
+/* ---------- PARTNER LOGOS ---------- */
+.partner-logo {
+  background:
+    linear-gradient(145deg,
+      rgba(255, 255, 255, 0.15) 0%,
+      rgba(255, 255, 255, 0.05) 100%
+    ) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border: 1px solid rgba(255, 220, 150, 0.40) !important;
+  box-shadow:
+    0 12px 30px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.20) !important;
+}
+
+.partner-logo:hover {
+  background:
+    linear-gradient(145deg,
+      rgba(255, 255, 255, 0.22) 0%,
+      rgba(255, 255, 255, 0.10) 100%
+    ) !important;
+  border-color: rgba(255, 220, 150, 0.75) !important;
+  box-shadow:
+    0 16px 40px rgba(255, 179, 79, 0.30),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25) !important;
+}
+
+/* ---------- GALERIE ITEMS ---------- */
+.gallery-item {
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  border: 1px solid rgba(255, 220, 150, 0.40) !important;
+  box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15),
+    0 0 30px rgba(255, 179, 79, 0.10) !important;
+}
+
+.gallery-item:hover {
+  border-color: rgba(255, 220, 150, 0.75) !important;
+  box-shadow:
+    0 24px 60px rgba(255, 140, 40, 0.40),
+    inset 0 1px 0 rgba(255, 255, 255, 0.20),
+    0 0 40px rgba(255, 179, 79, 0.25) !important;
+}
+
+/* ---------- STATS (chiffres clés) ---------- */
+.stat {
+  background:
+    linear-gradient(145deg,
+      rgba(255, 255, 255, 0.18) 0%,
+      rgba(255, 255, 255, 0.06) 100%
+    ) !important;
+  backdrop-filter: blur(20px) saturate(1.4) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(1.4) !important;
+  border: 1px solid rgba(255, 220, 150, 0.45) !important;
+  box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.30),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25),
+    0 0 40px rgba(255, 179, 79, 0.12) !important;
+}
+
+/* ---------- CARROUSEL TÉMOIGNAGES ---------- */
+.carousel {
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+}
+
+.carousel-slide.temoignage {
+  background: transparent !important;
+}
+
+/* ---------- FORMULAIRES (input, textarea, select) ---------- */
+.form-group input,
+.form-group textarea,
+.form-group select {
+  background:
+    linear-gradient(145deg,
+      rgba(255, 255, 255, 0.14) 0%,
+      rgba(255, 255, 255, 0.05) 100%
+    ) !important;
+  backdrop-filter: blur(18px) !important;
+  -webkit-backdrop-filter: blur(18px) !important;
+  border: 1px solid rgba(255, 220, 150, 0.40) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.15),
+    0 4px 12px rgba(0, 0, 0, 0.15) !important;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  background:
+    linear-gradient(145deg,
+      rgba(255, 255, 255, 0.20) 0%,
+      rgba(255, 255, 255, 0.08) 100%
+    ) !important;
+  border-color: rgba(255, 220, 150, 0.85) !important;
+  box-shadow:
+    0 0 0 3px rgba(255, 179, 79, 0.20),
+    inset 0 1px 0 rgba(255, 255, 255, 0.20) !important;
+}
+
+/* ---------- SÉLECTEUR DE MONTANTS DON ---------- */
+.don-amount {
+  background:
+    linear-gradient(145deg,
+      rgba(255, 255, 255, 0.14) 0%,
+      rgba(255, 255, 255, 0.05) 100%
+    ) !important;
+  backdrop-filter: blur(18px) !important;
+  -webkit-backdrop-filter: blur(18px) !important;
+  border: 2px solid rgba(255, 220, 150, 0.35) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.15),
+    0 4px 12px rgba(0, 0, 0, 0.15) !important;
+}
+
+.don-amount:hover {
+  background:
+    linear-gradient(145deg,
+      rgba(255, 255, 255, 0.22) 0%,
+      rgba(255, 255, 255, 0.10) 100%
+    ) !important;
+  border-color: rgba(255, 220, 150, 0.75) !important;
+}
+
+.don-amount.active {
+  background: linear-gradient(110deg, #ff4d6d, #ff8a1b) !important;
+  border-color: transparent !important;
+  box-shadow:
+    0 8px 24px rgba(255, 61, 109, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.30) !important;
+}
+
+/* ---------- CHAMP CUSTOM DON ---------- */
+.don-custom-input {
+  background:
+    linear-gradient(145deg,
+      rgba(255, 255, 255, 0.14) 0%,
+      rgba(255, 255, 255, 0.05) 100%
+    ) !important;
+  backdrop-filter: blur(18px) !important;
+  -webkit-backdrop-filter: blur(18px) !important;
+  border: 2px solid rgba(255, 220, 150, 0.35) !important;
+}
+
+.don-custom-input:focus-within,
+.don-custom-input.has-value {
+  background:
+    linear-gradient(145deg,
+      rgba(255, 179, 79, 0.20) 0%,
+      rgba(255, 179, 79, 0.08) 100%
+    ) !important;
+  border-color: rgba(255, 220, 150, 0.85) !important;
+  box-shadow:
+    0 0 0 3px rgba(255, 179, 79, 0.20),
+    0 8px 24px rgba(255, 61, 109, 0.25) !important;
+}
+
+/* ---------- DON IMPACT ITEMS ---------- */
+.don-impact-item {
+  background:
+    linear-gradient(145deg,
+      rgba(255, 255, 255, 0.14) 0%,
+      rgba(255, 255, 255, 0.05) 100%
+    ) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border: 1px solid rgba(255, 220, 150, 0.30) !important;
+}
+
+.don-impact-item:hover {
+  background:
+    linear-gradient(145deg,
+      rgba(255, 255, 255, 0.20) 0%,
+      rgba(255, 255, 255, 0.08) 100%
+    ) !important;
+  border-color: rgba(255, 220, 150, 0.60) !important;
+}
+
+/* ---------- FOOTER ---------- */
+footer {
+  background:
+    linear-gradient(180deg,
+      rgba(22, 11, 37, 0.30) 0%,
+      rgba(22, 11, 37, 0.50) 100%
+    ) !important;
+  backdrop-filter: blur(20px) saturate(1.3) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(1.3) !important;
+  border-top: 1px solid rgba(255, 220, 150, 0.30) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.10) !important;
+}
+
+/* ---------- SECTION GLASS ---------- */
+.section-glass::before {
+  background: rgba(22, 11, 37, 0.20) !important;
+  backdrop-filter: blur(3px) !important;
+  -webkit-backdrop-filter: blur(3px) !important;
+}
+
+/* ---------- RESPONSIVE : blur réduit sur mobile (perf) ---------- */
+@media (max-width: 850px) {
+  .card,
+  .pillars-section .pillar,
+  .don-panel,
+  .cta-panel,
+  .stat,
+  .video-wrapper {
+    backdrop-filter: blur(16px) saturate(1.3) !important;
+    -webkit-backdrop-filter: blur(16px) saturate(1.3) !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .card,
+  .pillars-section .pillar,
+  .don-panel,
+  .cta-panel,
+  .stat,
+  .video-wrapper {
+    backdrop-filter: blur(12px) saturate(1.2) !important;
+    -webkit-backdrop-filter: blur(12px) saturate(1.2) !important;
+  }
+}
+
+/* ---------- ACCESSIBILITÉ ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .pillars-section .pillar,
+  .don-panel,
+  .cta-panel,
+  .stat {
+    transition: none !important;
+  }
+}
+
+/* ============================================
+   VERRE FLouté LUMINEUX — GLOBAL
+   Toutes les fenêtres transparentes deviennent :
+   - Plus floutées (blur 20-24px)
+   - Plus lumineuses (fond plus clair)
+   - Bordures éclatantes dorées
+   - Halos lumineux
+   ============================================ */
+
+/* ---------- CARTES GÉNÉRIQUES ---------- */
+.card {
+  background:
+    linear-gradient(145deg,
+      rgba(255, 255, 255, 0.18) 0%,
+      rgba(255, 255, 255, 0.08) 100%
+    ) !important;
+  backdrop-filter: blur(22px) saturate(1.4) !important;
+  -webkit-backdrop-filter: blur(22px) saturate(1.4) !important;
+  border: 1px solid rgba(255, 220, 150, 0.45) !important;
+  box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.30),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25),
+    0 0 40px rgba(255, 179, 79, 0.15) !important;
+}
+
+.card:hover {
+  background:
+    linear-gradient(145deg,
+      rgba(255, 255, 255, 0.24) 0%,
+      rgba(255, 255, 255, 0.12) 100%
+    ) !important;
+  border-color: rgba(255, 220, 150, 0.75) !important;
+  box-shadow:
+    0 24px 60px rgba(255, 140, 40, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.30),
+    0 0 60px rgba(255, 179, 79, 0.25) !important;
+}
+
+/* ---------- PILLARS (4 piliers) ---------- */
+.pillars-section .pillar {
+  background:
+    linear-gradient(145deg,
+      rgba(255, 255, 255, 0.20) 0%,
+      rgba(255, 255, 255, 0.08) 100%
+    ) !important;
+  backdrop-filter: blur(24px) saturate(1.5) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(1.5) !important;
+  border: 1px solid rgba(255, 220, 150, 0.50) !important;
+  box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.30),
+    inset 0 1px 0 rgba(255, 255, 255, 0.30),
+    0 0 40px rgba(255, 179, 79, 0.18) !important;
+}
+
+.pillars-section .pillar:hover {
+  background:
+    linear-gradient(145deg,
+      rgba(255, 255, 255, 0.28) 0%,
+      rgba(255, 255, 255, 0.14) 100%
+    ) !important;
+  border-color: rgba(255, 220, 150, 0.85) !important;
+  box-shadow:
+    0 24px 60px rgba(255, 140, 40, 0.40),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35),
+    0 0 60px rgba(255, 179, 79, 0.30) !important;
+}
+
+/* ---------- PANEAU DON ---------- */
+.don-panel {
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(255, 61, 109, 0.18), transparent 60%),
+    linear-gradient(145deg,
+      rgba(255, 255, 255, 0.18) 0%,
+      rgba(255, 255, 255, 0.06) 100%
+    ) !important;
+  backdrop-filter: blur(24px) saturate(1.5) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(1.5) !important;
+  border: 1px solid rgba(255, 220, 150, 0.50) !important;
+  box-shadow:
+    0 28px 80px rgba(0, 0, 0, 0.40),
+    inset 0 1px 0 rgba(255, 255, 255, 0.30),
+    0 0 60px rgba(255, 61, 109, 0.20) !important;
+}
+
+/* ---------- BOUTONS SECONDARY (transparents) ---------- */
+.button.secondary {
+  background:
+    linear-gradient(145deg,
+      rgba(255, 255, 255, 0.16) 0%,
+      rgba(255, 255, 255, 0.06) 100%
+    ) !important;
+  backdrop-filter: blur(18px) saturate(1.3) !important;
+  -webkit-backdrop-filter: blur(18px) saturate(1.3) !important;
+  border: 1px solid rgba(255, 220, 150, 0.45) !important;
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.20),
+    inset 0 1px 0 rgba(255, 255, 255, 0.20) !important;
+  color: #fffafc !important;
+}
+
+.button.secondary:hover {
+  background:
+    linear-gradient(145deg,
+      rgba(255, 255, 255, 0.24) 0%,
+      rgba(255, 255, 255, 0.12) 100%
+    ) !important;
+  border-color: rgba(255, 220, 150, 0.75) !important;
+  box-shadow:
+    0 12px 32px rgba(255, 179, 79, 0.30),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25) !important;
+}
+
+/* ---------- NAVBAR (topbar) ---------- */
+.nav {
+  background:
+    linear-gradient(145deg,
+      rgba(107, 32, 144, 0.75) 0%,
+      rgba(75, 23, 111, 0.65) 100%
+    ) !important;
+  backdrop-filter: blur(24px) saturate(1.5) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(1.5) !important;
+  border: 1px solid rgba(255, 220, 150, 0.35) !important;
+  box-shadow:
+    0 16px 50px rgba(0, 0, 0, 0.30),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    0 0 40px rgba(255, 179, 79, 0.12) !important;
+}
+
+/* ---------- CTA PANEL ---------- */
+.cta-panel {
+  background:
+    linear-gradient(145deg,
+      rgba(255, 255, 255, 0.16) 0%,
+      rgba(255, 255, 255, 0.06) 100%
+    ) !important;
+  backdrop-filter: blur(24px) saturate(1.5) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(1.5) !important;
+  border: 1px solid rgba(255, 220, 150, 0.45) !important;
+  box-shadow:
+    0 28px 80px rgba(0, 0, 0, 0.40),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25),
+    0 0 60px rgba(255, 179, 79, 0.20) !important;
+}
+
+.cta-panel p {
+  color: #fffafc !important;
+}
+
+/* ---------- VIDÉO WRAPPER ---------- */
+.video-wrapper {
+  background: rgba(22, 11, 37, 0.60) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border: 1px solid rgba(255, 220, 150, 0.45) !important;
+  box-shadow:
+    0 24px 70px rgba(0, 0, 0, 0.40),
+    0 0 60px rgba(255, 179, 79, 0.15) !important;
+}
+
+/* ---------- ALERTES (bandeau info) ---------- */
+.alert {
+  background:
+    linear-gradient(145deg,
+      rgba(255, 179, 79, 0.18) 0%,
+      rgba(255, 179, 79, 0.08) 100%
+    ) !important;
+  backdrop-filter: blur(18px) !important;
+  -webkit-backdrop-filter: blur(18px) !important;
+  border: 1px solid rgba(255, 220, 150, 0.55) !important;
+  box-shadow:
+    0 8px 24px rgba(255, 140, 40, 0.20),
+    inset 0 1px 0 rgba(255, 255, 255, 0.20) !important;
+  color: #fff5e0 !important;
+}
+
+.alert strong {
+  color: #ffd97a !important;
+}
+
+/* ---------- BADGES FLOTTANTS ---------- */
+.donate-float {
+  background: linear-gradient(110deg, #ff4d6d, #ff8a1b) !important;
+  backdrop-filter: blur(20px) saturate(1.4) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(1.4) !important;
+  box-shadow:
+    0 20px 50px rgba(255, 61, 109, 0.55),
+    0 10px 25px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.30) !important;
+}
+
+.donate-float:hover {
+  box-shadow:
+    0 24px 60px rgba(255, 61, 109, 0.75),
+    0 14px 30px rgba(0, 0, 0, 0.30),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35) !important;
+}
+
+.app-download-badge {
+  background: linear-gradient(110deg, #8b30b8, #a84acc 45%, #ffa03a) !important;
+  backdrop-filter: blur(20px) saturate(1.4) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(1.4) !important;
+  box-shadow:
+    0 20px 50px rgba(255, 140, 40, 0.55),
+    0 10px 25px rgba(0, 0, 0, 0.30),
+    inset 0 1px 0 rgba(255, 255, 255, 0.30) !important;
+}
+
+.app-download-badge:hover {
+  box-shadow:
+    0 24px 60px rgba(255, 140, 40, 0.75),
+    0 14px 30px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35) !important;
+}
+
+/* L'icône téléphone dans le badge : fond plus lumineux */
+.app-badge-icon {
+  background: rgba(255, 255, 255, 0.28) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35) !important;
+}
+
+/* ---------- PARTNER LOGOS ---------- */
+.partner-logo {
+  background:
+    linear-gradient(145deg,
+      rgba(255, 255, 255, 0.15) 0%,
+      rgba(255, 255, 255, 0.05) 100%
+    ) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border: 1px solid rgba(255, 220, 150, 0.40) !important;
+  box-shadow:
+    0 12px 30px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.20) !important;
+}
+
+.partner-logo:hover {
+  background:
+    linear-gradient(145deg,
+      rgba(255, 255, 255, 0.22) 0%,
+      rgba(255, 255, 255, 0.10) 100%
+    ) !important;
+  border-color: rgba(255, 220, 150, 0.75) !important;
+  box-shadow:
+    0 16px 40px rgba(255, 179, 79, 0.30),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25) !important;
+}
+
+/* ---------- GALERIE ITEMS ---------- */
+.gallery-item {
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  border: 1px solid rgba(255, 220, 150, 0.40) !important;
+  box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15),
+    0 0 30px rgba(255, 179, 79, 0.10) !important;
+}
+
+.gallery-item:hover {
+  border-color: rgba(255, 220, 150, 0.75) !important;
+  box-shadow:
+    0 24px 60px rgba(255, 140, 40, 0.40),
+    inset 0 1px 0 rgba(255, 255, 255, 0.20),
+    0 0 40px rgba(255, 179, 79, 0.25) !important;
+}
+
+/* ---------- STATS (chiffres clés) ---------- */
+.stat {
+  background:
+    linear-gradient(145deg,
+      rgba(255, 255, 255, 0.18) 0%,
+      rgba(255, 255, 255, 0.06) 100%
+    ) !important;
+  backdrop-filter: blur(20px) saturate(1.4) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(1.4) !important;
+  border: 1px solid rgba(255, 220, 150, 0.45) !important;
+  box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.30),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25),
+    0 0 40px rgba(255, 179, 79, 0.12) !important;
+}
+
+/* ---------- CARROUSEL TÉMOIGNAGES ---------- */
+.carousel {
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+}
+
+.carousel-slide.temoignage {
+  background: transparent !important;
+}
+
+/* ---------- FORMULAIRES (input, textarea, select) ---------- */
+.form-group input,
+.form-group textarea,
+.form-group select {
+  background:
+    linear-gradient(145deg,
+      rgba(255, 255, 255, 0.14) 0%,
+      rgba(255, 255, 255, 0.05) 100%
+    ) !important;
+  backdrop-filter: blur(18px) !important;
+  -webkit-backdrop-filter: blur(18px) !important;
+  border: 1px solid rgba(255, 220, 150, 0.40) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.15),
+    0 4px 12px rgba(0, 0, 0, 0.15) !important;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  background:
+    linear-gradient(145deg,
+      rgba(255, 255, 255, 0.20) 0%,
+      rgba(255, 255, 255, 0.08) 100%
+    ) !important;
+  border-color: rgba(255, 220, 150, 0.85) !important;
+  box-shadow:
+    0 0 0 3px rgba(255, 179, 79, 0.20),
+    inset 0 1px 0 rgba(255, 255, 255, 0.20) !important;
+}
+
+/* ---------- SÉLECTEUR DE MONTANTS DON ---------- */
+.don-amount {
+  background:
+    linear-gradient(145deg,
+      rgba(255, 255, 255, 0.14) 0%,
+      rgba(255, 255, 255, 0.05) 100%
+    ) !important;
+  backdrop-filter: blur(18px) !important;
+  -webkit-backdrop-filter: blur(18px) !important;
+  border: 2px solid rgba(255, 220, 150, 0.35) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.15),
+    0 4px 12px rgba(0, 0, 0, 0.15) !important;
+}
+
+.don-amount:hover {
+  background:
+    linear-gradient(145deg,
+      rgba(255, 255, 255, 0.22) 0%,
+      rgba(255, 255, 255, 0.10) 100%
+    ) !important;
+  border-color: rgba(255, 220, 150, 0.75) !important;
+}
+
+.don-amount.active {
+  background: linear-gradient(110deg, #ff4d6d, #ff8a1b) !important;
+  border-color: transparent !important;
+  box-shadow:
+    0 8px 24px rgba(255, 61, 109, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.30) !important;
+}
+
+/* ---------- CHAMP CUSTOM DON ---------- */
+.don-custom-input {
+  background:
+    linear-gradient(145deg,
+      rgba(255, 255, 255, 0.14) 0%,
+      rgba(255, 255, 255, 0.05) 100%
+    ) !important;
+  backdrop-filter: blur(18px) !important;
+  -webkit-backdrop-filter: blur(18px) !important;
+  border: 2px solid rgba(255, 220, 150, 0.35) !important;
+}
+
+.don-custom-input:focus-within,
+.don-custom-input.has-value {
+  background:
+    linear-gradient(145deg,
+      rgba(255, 179, 79, 0.20) 0%,
+      rgba(255, 179, 79, 0.08) 100%
+    ) !important;
+  border-color: rgba(255, 220, 150, 0.85) !important;
+  box-shadow:
+    0 0 0 3px rgba(255, 179, 79, 0.20),
+    0 8px 24px rgba(255, 61, 109, 0.25) !important;
+}
+
+/* ---------- DON IMPACT ITEMS ---------- */
+.don-impact-item {
+  background:
+    linear-gradient(145deg,
+      rgba(255, 255, 255, 0.14) 0%,
+      rgba(255, 255, 255, 0.05) 100%
+    ) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border: 1px solid rgba(255, 220, 150, 0.30) !important;
+}
+
+.don-impact-item:hover {
+  background:
+    linear-gradient(145deg,
+      rgba(255, 255, 255, 0.20) 0%,
+      rgba(255, 255, 255, 0.08) 100%
+    ) !important;
+  border-color: rgba(255, 220, 150, 0.60) !important;
+}
+
+/* ---------- FOOTER ---------- */
+footer {
+  background:
+    linear-gradient(180deg,
+      rgba(22, 11, 37, 0.30) 0%,
+      rgba(22, 11, 37, 0.50) 100%
+    ) !important;
+  backdrop-filter: blur(20px) saturate(1.3) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(1.3) !important;
+  border-top: 1px solid rgba(255, 220, 150, 0.30) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.10) !important;
+}
+
+/* ---------- SECTION GLASS ---------- */
+.section-glass::before {
+  background: rgba(22, 11, 37, 0.20) !important;
+  backdrop-filter: blur(3px) !important;
+  -webkit-backdrop-filter: blur(3px) !important;
+}
+
+/* ---------- RESPONSIVE : blur réduit sur mobile (perf) ---------- */
+@media (max-width: 850px) {
+  .card,
+  .pillars-section .pillar,
+  .don-panel,
+  .cta-panel,
+  .stat,
+  .video-wrapper {
+    backdrop-filter: blur(16px) saturate(1.3) !important;
+    -webkit-backdrop-filter: blur(16px) saturate(1.3) !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .card,
+  .pillars-section .pillar,
+  .don-panel,
+  .cta-panel,
+  .stat,
+  .video-wrapper {
+    backdrop-filter: blur(12px) saturate(1.2) !important;
+    -webkit-backdrop-filter: blur(12px) saturate(1.2) !important;
+  }
+}
+
+/* ---------- ACCESSIBILITÉ ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .pillars-section .pillar,
+  .don-panel,
+  .cta-panel,
+  .stat {
+    transition: none !important;
+  }
+}
+
+/* ============================================
+   NAVBAR (TOPBAR) — TOUJOURS PRÉSENTABLE
+   ============================================ */
+
+/* Conteneur du topbar */
+.topbar {
+  padding-top: 18px !important;
+  top: 18px !important;
+}
+
+/* Barre de navigation */
+.nav {
+  padding: 14px 22px !important;
+  border-radius: 24px !important;
+  background:
+    linear-gradient(145deg,
+      rgba(107, 32, 144, 0.82) 0%,
+      rgba(75, 23, 111, 0.72) 100%
+    ) !important;
+  backdrop-filter: blur(24px) saturate(1.6) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(1.6) !important;
+  border: 1px solid rgba(255, 220, 150, 0.40) !important;
+  box-shadow:
+    0 16px 50px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.20),
+    0 0 40px rgba(255, 179, 79, 0.15) !important;
+  gap: 28px !important;
+}
+
+/* Logo et nom */
+.nav .brand {
+  gap: 14px !important;
+}
+
+.nav .brand img {
+  width: 52px !important;
+  height: 52px !important;
+  border-radius: 14px !important;
+  padding: 4px !important;
+  background: #fff !important;
+  box-shadow:
+    0 6px 16px rgba(0, 0, 0, 0.30),
+    0 0 20px rgba(255, 220, 150, 0.20) !important;
+  border: 1px solid rgba(255, 220, 150, 0.35) !important;
+}
+
+.nav .brand strong {
+  font-size: 1.02rem !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.05em !important;
+  color: #fffafc !important;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.40) !important;
+}
+
+.nav .brand small {
+  font-size: 0.68rem !important;
+  letter-spacing: 0.18em !important;
+  color: #ffe4a0 !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.30) !important;
+}
+
+/* Liens de navigation */
+.navlinks {
+  gap: 24px !important;
+}
+
+.navlinks a {
+  font-size: 0.92rem !important;
+  font-weight: 600 !important;
+  color: #faf5fc !important;
+  padding: 6px 4px !important;
+  position: relative;
+  transition: color 0.25s ease !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.30) !important;
+}
+
+.navlinks a:hover {
+  color: #ffd97a !important;
+}
+
+/* Petit trait animé sous les liens au survol */
+.navlinks a::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #ffb34f, #f28a1b);
+  border-radius: 2px;
+  transition: width 0.3s ease, left 0.3s ease;
+  transform: translateX(-50%);
+}
+
+.navlinks a:hover::after {
+  width: 80%;
+}
+
+/* Lien don dans le menu mobile */
+.navlinks a.navlinks-donate {
+  color: #ffd0d8 !important;
+  background: linear-gradient(110deg, rgba(255, 61, 109, 0.25), rgba(255, 138, 27, 0.25)) !important;
+  padding: 8px 14px !important;
+  border-radius: 10px !important;
+  border: 1px solid rgba(255, 61, 109, 0.45) !important;
+  font-weight: 750 !important;
+}
+
+.navlinks a.navlinks-donate:hover {
+  background: linear-gradient(110deg, rgba(255, 61, 109, 0.40), rgba(255, 138, 27, 0.40)) !important;
+  color: #fff !important;
+}
+
+.navlinks a.navlinks-donate::after {
+  display: none;
+}
+
+/* Groupe boutons à droite (don + application) */
+.nav-actions {
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  flex-shrink: 0 !important;
+}
+
+/* Bouton "Faire un don" */
+.nav-donate {
+  padding: 11px 20px !important;
+  font-size: 0.88rem !important;
+  font-weight: 750 !important;
+  border-radius: 999px !important;
+  background: linear-gradient(110deg, #ff4d6d, #ff8a1b) !important;
+  color: #fffafc !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+  box-shadow:
+    0 10px 28px rgba(255, 61, 109, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25) !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+  white-space: nowrap;
+}
+
+.nav-donate:hover {
+  transform: translateY(-2px) !important;
+  box-shadow:
+    0 14px 36px rgba(255, 61, 109, 0.60),
+    inset 0 1px 0 rgba(255, 255, 255, 0.30) !important;
+}
+
+/* Bouton "Application" */
+.nav-cta {
+  padding: 11px 20px !important;
+  font-size: 0.88rem !important;
+  font-weight: 750 !important;
+  border-radius: 999px !important;
+  background: linear-gradient(110deg, #8b30b8, #a84acc 45%, #ffa03a) !important;
+  color: #fffafc !important;
+  border: 1px solid rgba(255, 220, 150, 0.35) !important;
+  box-shadow:
+    0 10px 28px rgba(255, 140, 40, 0.40),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25) !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+  white-space: nowrap;
+}
+
+.nav-cta:hover {
+  transform: translateY(-2px) !important;
+  box-shadow:
+    0 14px 36px rgba(255, 140, 40, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.30) !important;
+}
+
+/* Bouton hamburger (mobile) */
+.menu-toggle {
+  padding: 10px 14px !important;
+  border-radius: 12px !important;
+  border: 1px solid rgba(255, 220, 150, 0.40) !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+  color: #fffafc !important;
+  font-size: 1.3rem !important;
+  transition: background 0.2s ease !important;
+}
+
+.menu-toggle:hover {
+  background: rgba(255, 255, 255, 0.15) !important;
+}
+
+/* ============================================
+   RESPONSIVE NAVBAR
+   ============================================ */
+
+@media (max-width: 1024px) {
+  .navlinks {
+    gap: 18px !important;
+  }
+  .navlinks a {
+    font-size: 0.86rem !important;
+  }
+  .nav-donate, .nav-cta {
+    padding: 10px 16px !important;
+    font-size: 0.82rem !important;
+  }
+}
+
+@media (max-width: 850px) {
+  .navlinks {
+    gap: 14px !important;
+  }
+  .nav-donate {
+    display: none !important;   /* caché, présent dans le menu mobile */
+  }
+  .nav-cta {
+    padding: 10px 16px !important;
+    font-size: 0.80rem !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .topbar {
+    top: 8px !important;
+    padding-top: 8px !important;
+  }
+  .nav {
+    padding: 10px 14px !important;
+    border-radius: 18px !important;
+  }
+  .nav .brand img {
+    width: 42px !important;
+    height: 42px !important;
+  }
+  .nav .brand strong {
+    font-size: 0.88rem !important;
+  }
+  .nav .brand small {
+    font-size: 0.58rem !important;
+  }
+  .nav-cta {
+    padding: 9px 14px !important;
+    font-size: 0.75rem !important;
+  }
+}
+
+/* ============================================
+   NAVBAR — FORCER L'HORIZONTALITÉ PARTOUT
+   (dons.html inclus)
+   ============================================ */
+
+/* Le conteneur nav : toujours en ligne, jamais en colonne */
+.nav {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 16px !important;
+  padding: 12px 18px !important;
+}
+
+/* Le brand (logo + texte) : ne doit pas casser */
+.nav .brand {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  flex-shrink: 0 !important;
+  min-width: 0 !important;
+  gap: 10px !important;
+}
+
+.nav .brand span {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 2px !important;
+  min-width: 0 !important;
+}
+
+/* Le bloc navlinks : horizontal sur desktop */
+.nav .navlinks {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  align-items: center !important;
+  gap: 18px !important;
+  flex-shrink: 1 !important;
+  min-width: 0 !important;
+}
+
+.nav .navlinks a {
+  white-space: nowrap !important;   /* empêche les retours à la ligne dans les liens */
+  font-size: 0.86rem !important;
+}
+
+/* Le bloc nav-actions : horizontal */
+.nav .nav-actions {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  align-items: center !important;
+  gap: 10px !important;
+  flex-shrink: 0 !important;
+}
+
+.nav .nav-donate,
+.nav .nav-cta {
+  white-space: nowrap !important;   /* empêche les retours à la ligne dans les boutons */
+  flex-shrink: 0 !important;
+}
+
+/* Le bouton hamburger : aligné, pas de wrap */
+.nav .menu-toggle {
+  display: none;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-shrink: 0 !important;
+}
+
+/* ============================================
+   RESPONSIVE : taille du texte ajustée, jamais de wrap
+   ============================================ */
+
+@media (max-width: 1200px) {
+  .nav .navlinks { gap: 14px !important; }
+  .nav .navlinks a { font-size: 0.82rem !important; }
+  .nav .nav-donate,
+  .nav .nav-cta { padding: 9px 14px !important; font-size: 0.80rem !important; }
+  .nav .brand img { width: 44px !important; height: 44px !important; }
+  .nav .brand strong { font-size: 0.92rem !important; }
+  .nav .brand small { font-size: 0.60rem !important; }
+}
+
+@media (max-width: 1000px) {
+  .nav .navlinks { gap: 10px !important; }
+  .nav .navlinks a { font-size: 0.78rem !important; }
+  .nav .nav-donate { display: none !important; }    /* caché sur tablette */
+  .nav .nav-cta { padding: 8px 12px !important; font-size: 0.75rem !important; }
+}
+
+/* À 850px : on passe en mode hamburger (menu déroulant) */
+@media (max-width: 850px) {
+  .nav .menu-toggle { display: inline-flex !important; }
+  .nav .navlinks {
+    display: none !important;   /* caché par défaut, ouvert par toggleMenu() */
+    flex-direction: column !important;   /* vertical dans le menu déroulant */
+    flex-wrap: wrap !important;
+    gap: 12px !important;
+    position: absolute !important;
+    top: calc(100% + 8px) !important;
+    left: 0 !important;
+    right: 0 !important;
+    padding: 16px !important;
+    border-radius: 18px !important;
+    background: rgba(62, 20, 91, 0.97) !important;
+    backdrop-filter: blur(18px) !important;
+    border: 1px solid rgba(255, 220, 150, 0.35) !important;
+    box-shadow: 0 16px 50px rgba(0, 0, 0, 0.35) !important;
+  }
+  .nav .navlinks.open {
+    display: flex !important;
+  }
+  .nav .navlinks a {
+    font-size: 0.92rem !important;
+    padding: 8px 10px !important;
+    white-space: normal !important;
+  }
+  .nav .navlinks a.navlinks-donate {
+    display: inline-flex !important;
+  }
+  /* nav-actions (don + app) : reste horizontal */
+  .nav .nav-actions {
+    gap: 6px !important;
+  }
+  .nav .nav-cta {
+    padding: 8px 12px !important;
+    font-size: 0.75rem !important;
+  }
+}
+
+/* À 480px : on cache le texte du bouton app, on garde juste l'icône ↗ */
+@media (max-width: 480px) {
+  .nav .brand strong { font-size: 0.82rem !important; }
+  .nav .brand small { font-size: 0.52rem !important; }
+  .nav .brand img { width: 36px !important; height: 36px !important; }
+  .nav .nav-cta {
+    padding: 8px 10px !important;
+    font-size: 0 !important;      /* cache le texte "Application" */
+  }
+  .nav .nav-cta span {
+    font-size: 1rem !important;   /* mais garde la flèche ↗ visible */
+  }
+}
+
+/* À 380px : très compact */
+@media (max-width: 380px) {
+  .nav .brand small { display: none !important; }
+  .nav .nav-cta span { font-size: 0.9rem !important; }
+}
